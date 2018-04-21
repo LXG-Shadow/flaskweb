@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ webtitle }}</title>
+<link rel="stylesheet" type="text/css" href="{{ webcss }}" />
+</head>
+
+<body>
+	<div id="header" class="header">
+		<h1 class="title">{{ webtitle }}</h1>
+	</div>
+	<div id="maincontent" class="maincontent">
+         <form method="POST">
+             {{ linkform.hidden_tag() }}
+             {{ linkform.favlink.label(class="contentxt1") }} {{ linkform.favlink(class="inputs") }}
+             <p class="contentxt"></p>
+             {{ linkform.number.label(class="contentxt1") }}{{ linkform.number(class="inputs",value="1") }}
+             {{ linkform.submit() }}
+         </form>
+        <table class="tables">
+        {% if avsc %}
+        {% for av in avsc.pn %}
+        <tr class="tables">
+            <th class="tables"><a href={{ avsc.avslink[av] }}>{{ avsc.avs[av] }}</a></th>
+            <th class="tables">{{ avsc.avstitle[av] }}</th>
+            <th class="tables"><a href="{{ avsc.avspic[av] }}">{{ avsc.avspic[av] }}</a></th>
+        </tr>
+        {% endfor %}
+        {% else %}
+        {% endif %}
+        </table>
+	</div>
+	<div id="footer" class="footer">
+	</div>
+</body>
+</html>

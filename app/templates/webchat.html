@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ webtitle }}</title>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ webcss }}" />
+</head>
+{% if stats == "0" %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#login').click(function(){
+        var params = $("#userdata").serializeArray();  
+        var j = {};  
+        for (var item in params) {  
+            j[params[item].name] = params[item].value;  
+        };
+        $.post("./api/login/",j,function(data){
+            alert(data["message"]);
+            if(data["code"] == "1"){
+            	window.location.reload(true)
+            };
+        });
+    });
+});
+</script>
+{% endif %}
+<body>
+	<div id="header" class="header">
+		<h1 class="title">{{ webtitle }}</h1>
+	</div>
+	<div id="maincontent" class="maincontent">
+        {% if stats == "1" %}
+            <p class="contentxt">你好，{{ username }}</p>
+            <p class="contentxt">已登录</p>
+        {% else %}
+        <form id="userdata">
+            <input type="text" name="username"/>
+            <input type="text" name="password"/>
+            <input type="button" id="login" value="登陆" />
+        </form>  
+        {% endif %}
+	</div>
+	<div id="footer" class="footer">
+	</div>
+</body>
+</html>
