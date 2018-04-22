@@ -16,7 +16,9 @@ codes = {"-1":"传入参数错误",
          "5":"用户名已存在",
          "6":"信息获取成功",
          "7":"该用户不存在",
-         "8":"成功获取用户信息"}
+         "8":"成功获取用户信息",
+         "9":"成功登出",
+         "10":"你还没登陆呢"}
 
 
 def newjson(code,data = ""):
@@ -25,4 +27,5 @@ def newjson(code,data = ""):
 from app.api import login
 from app.api import register
 from app.api import getmsg
+from app.api import logout
 

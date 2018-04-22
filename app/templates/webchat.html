@@ -26,6 +26,20 @@
 });
 </script>
 {% endif %}
+{% if stats == "1" %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#logout').click(function(){
+        $.post("./api/logout/","",function(data){
+            alert(data["message"]);
+            if(data["code"] == "9"){
+            	window.location.reload(true)
+            };
+        });
+    });
+});
+</script>
+{% endif %}
 <body>
 	<div id="header" class="header">
 		<h1 class="title">{{ webtitle }}</h1>
@@ -34,6 +48,7 @@
         {% if stats == "1" %}
             <p class="contentxt">你好，{{ username }}</p>
             <p class="contentxt">已登录</p>
+            <input type="button" id="logout" value="登出">
         {% else %}
         <form id="userdata">
             <input type="text" name="username"/>

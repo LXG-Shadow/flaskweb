@@ -24,8 +24,7 @@ def login():
         if dbdata["code"] == "1":
             resp = app.make_response(newjson(dbdata["code"]))
             #设置cookie
-            expiredtime = datetime.datetime.utcnow() + datetime.timedelta(hours= 1)
-            print(expiredtime)
+            expiredtime = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
             resp.set_cookie("username", username, expires=expiredtime)
             resp.set_cookie("password", password, expires=expiredtime )
             return resp
