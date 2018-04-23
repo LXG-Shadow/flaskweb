@@ -1,6 +1,6 @@
 from app.api import *
 
-@app.route("/api/getmsg/<msgid>", methods = ["GET"])
+@app.route("/api/msg/get/<msgid>", methods = ["GET"])
 def getmsg(msgid):
     msgid = str(msgid)
     if msgid.isdigit():
@@ -26,15 +26,15 @@ def getmsgdb(start=None):
         #是则查询之后的数据
         if start != None:
             # 查询在msgid之后的信息
-            cursor.execute("select user_id,message from messages where msgid>%s", [start])
+            cursor.execute("select msgid,user_id,message from messages where msgid>%s", [start])
             msglist = list(cursor.fetchall())
         else:
             # 查询倒数10条数据
-            cursor.execute("select user_id,message from messages order by msgid desc limit 10")
+            cursor.execute("select msgid,user_id,message from messages order by msgid desc limit 20")
             msglist = list(cursor.fetchall())
             msglist.reverse()
         #将[(用户id,消息)]的格式转为[{'message': 消息, 'user_id': 用户id}]
-        msglist = list(map(lambda x: dict(zip(["user_id", "message"], x)), msglist))
+        msglist = list(map(lambda x: dict(zip(["msgid","user_id", "message"], x)), msglist))
         for ndict in msglist:
             #获取用户信息
             dbdata = database.get_user_info(ndict["user_id"])
