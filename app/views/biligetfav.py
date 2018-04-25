@@ -1,6 +1,6 @@
 from app.views import *
 
-@app.route("/myapp/bilifav", methods=["GET","POST"])
+@app.route("/myapp/bilifav/", methods=["GET","POST"])
 def bilifav() :
     webcss = url_for("static", filename="style.css")
     from app.myapp import BiliFavGet

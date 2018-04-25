@@ -33,9 +33,11 @@ def sendmsg():
             #密码错误则返回错误信息
             else:
                 return newjson('-5')
-        # 为登陆则返回未登录信息
+        # 未登陆则返回未登录信息
         else:
             return newjson('-4')
+    else:
+        return newjson('-2')
 
 
 def sendmsgdb(user_id,message):

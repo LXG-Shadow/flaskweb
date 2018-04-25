@@ -14,3 +14,4 @@ def hello(name):
 
 from app.views import biligetfav
 from app.views import webchat
+from app.views import webchatadmin

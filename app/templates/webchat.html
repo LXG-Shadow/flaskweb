@@ -20,7 +20,7 @@
         for (var item in params) {  
             j[params[item].name] = params[item].value;  
         };
-        $.post("./api/login/",j,function(data){
+        $.post("../api/login/",j,function(data){
             alert(data["message"]);
             if(data["code"] == "1"){
             	window.location.reload(true);
@@ -30,15 +30,14 @@
 });
 </script>
 {% endif %}
-{% if stats == "1" %}
+{% if stats > "0" %}
 <!-- 如果已登录，显示已登录js-->
 <script type="text/javascript">
     //当文档加载完毕后开始
     $(document).ready(function(){
-
         //登出按钮
         $('#logout').click(function(){
-            $.post("./api/logout/","",function(data){
+            $.post("../api/logout/","",function(data){
                 alert(data["message"]);
                 if(data["code"] == "9"){
                     window.location.reload(true);
@@ -56,10 +55,18 @@
 		<h1 class="title">{{ webtitle }}</h1>
 	</div>
 	<div id="maincontent" class="maincontent">
-        {% if stats == "1" %}
+        {% if stats > "0" %}
             <p class="contentxt1">已登录</p>
             <p class="contentxt1">你好，{{ username }}</p>
             <input type="button" id="logout" value="登出">
+            {% if stats == "3" %}
+            <input type="button" id="adminpage" value="管理员界面"/>
+            <script type="text/javascript">
+                $('#adminpage').click(function(){
+                    window.open("./admin/");
+                });
+            </script>
+            {% endif %}
         {% else %}
         <form id="userdata">
             <p class="contentxt1">请登录</p>
@@ -73,18 +80,18 @@
             $(document).ready(function(){
                 var msgid = 0;
                 function getmessage(){
-                    $.get("./api/msg/get/"+msgid,"",function(data){
+                    $.get("../api/msg/get/"+msgid,"",function(data){
                         if(data["code"] == "6"){
                             var msgcount = parseInt(data["data"]["msgcount"]);
                             if (msgcount == 0){
-                                a = setTimeout(getmessage,1000);
+                                var a = setTimeout(getmessage,1000);
                             }
                             else{
                                 for (var i = 0; i < msgcount; i++) {
                                     var currentdata = data["data"]["msg"][i];
                                     var newmsg = document.createElement("p");
                                     newmsg.className = "chatmessage";
-                                    newmsg.innerHTML = currentdata["username"] + ": " + currentdata["message"];
+                                    newmsg.innerText = currentdata["username"] + ": " + currentdata["message"];
                                     $("#chatdiv").append(newmsg);
                                 };
                                 //将页面滑到最底部.
@@ -92,7 +99,7 @@
                                 div.scrollTop = div.scrollHeight;
                                 msgid = parseInt(data["data"]["msg"][msgcount-1]["msgid"]);
                                 //开始下一次收取信息
-                                a = setTimeout(getmessage,1000);
+                                var a = setTimeout(getmessage,1000);
                             };
                         };
                     });
@@ -101,7 +108,7 @@
             });
         </script>
     </div>
-    {% if stats == "1" %}
+    {% if stats > "0" %}
     <form id="messagesend" onsubmit="return false;">
         <p class="contentxt1">输入信息: </p>
         <input type="text" name="message2send" id="message2send"/>
@@ -120,10 +127,11 @@
             	j[params[item].name] = params[item].value;
             };
 
-            $.post("./api/msg/send/",j,function(data){
+            $.post("../api/msg/send/",j,function(data){
             	//显示发送状态
                 var show = document.getElementById("sendback");
-                show.innerHTML = "发送状态: " + data["message"];
+                show.innerText = "发送状态: " + data["message"];
+                var a = setTimeout("var show = document.getElementById('sendback');show.innerText = '发送状态: ';",1000)
                 //重置发送文本框 并 让该文本框获取焦点
                 $('#message2send').val("").focus();
                 //如果cookie内用户账号密码对不上，则刷星网页
@@ -133,8 +141,22 @@
             });
         };
 
-        //发送消息按钮
+        //绑定消息发送按钮1
+        document.getElementById("send").onclick = sendmsg2sever;
+
+
+        //绑定回车键发送1
+        document.getElementById("message2send").onkeyup = function(e){
+            if (e.keyCode !== 13) return;
+            sendmsg2sever();
+        };
+
+        /*
+
+        //绑定消息发送按钮2
         $('#send').click(sendmsg2sever);
+
+        //绑定回车键发送2
 
         //检测发送文本框是否被选中
         $('#message2send').focus(function(){
@@ -155,6 +177,7 @@
         	//取消绑定keypress
         	$('#message2send').unbind("keypress");
         });
+        */
 
     });
 
