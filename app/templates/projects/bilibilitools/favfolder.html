@@ -1,0 +1,194 @@
+
+{% extends "common/base.html" %}
+
+{% block title %}BilibiliTools_FavFolder{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="{{url_for('static', filename='js/bootstrapValidator.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap-paginator.js')}}"></script>
+{% endblock scripts %}
+
+{%- block styles %}
+    {{ super() }}
+    <link href="{{url_for('static', filename='css/bootstrapValidator.css')}}" rel="stylesheet">
+{%- endblock styles %}
+
+{% block navbar %}
+    {% include 'component/navigator.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12" id="alert_feedback">
+            </div>
+            <div class="col-md-12 column">
+                <form role="form" id="favform">
+                    <div class="form-group col-lg-6">
+                        <label for="favlink" class="control-label">收藏夹链接</label>
+                        <input type="url" class="form-control" id ="favlink" name="favlink" placeholder="请输入收藏夹链接">
+                        <p class="help-block">
+                            *请确保您的收藏夹处于公开状态
+                        </p>
+                        <button class="btn btn-default" id="submit">获取</button>
+                    </div>
+
+                    <script>
+                        var favdata = [];
+                        $(document).ready(function() {
+                            $('#favform').bootstrapValidator({
+                                live: 'disabled',
+                                message: 'This value is not valid',
+                                submitButtons: '#submit',
+                                submitHandler: function (validator, form, submitButton) {
+                                    alert("submit");
+                                },
+                                feedbackIcons: {
+                                    valid: 'glyphicon glyphicon-ok',
+                                    invalid: 'glyphicon glyphicon-remove',
+                                    validating: 'glyphicon glyphicon-refresh'
+                                },
+                                fields: {
+                                    favlink: {
+                                        message: '收藏夹地址错误',
+                                        validators: {
+                                            notEmpty: {
+                                                message: '收藏夹地址不能为空'
+                                            },
+                                            uri : {
+                                                message: '请输入正确的收藏夹地址'
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                            $("#favform").submit(function(ev){ev.preventDefault();});
+                            $("#submit").click(function () {
+                                 $("#favform").bootstrapValidator('validate');
+                                if ($("#favform").data('bootstrapValidator').isValid()){
+
+                                    $("#alert_feedback").empty();
+
+                                    $("#submit").addClass("disabled");
+                                    $("#submit").removeClass("btn-default");
+                                    $("#submit").addClass("btn-primary");
+                                    $("#submit").text("正在获取中");
+                                    $('#submit').prop('disabled', true);
+
+                                    $.get("/api/bilibilitools/favfolder",{"favlink":$("#favlink").val()},function(data){
+                                        if (data["code"] === "1"){
+                                            $("#alert_feedback").append("<div class=\"alert alert-success alert-dismissible\" role=\"alert\">\n" +
+                                                "                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n" +
+                                                "                    <strong>获取成功!</strong> 点击 <a onclick=\"show_fav()\" class=\"alert-link\">这里</a>展示数据\n" +
+                                                "                </div>");
+                                            favdata = data["data"]
+                                        }
+                                        else if (parseInt(data["code"]) > 1){
+                                             $("#alert_feedback").append("<div class=\"alert alert-warning alert-dismissible\" role=\"alert\">\n" +
+                                                "                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n" +
+                                                "                    <strong>获取失败!</strong>" +data["message"]+
+                                                "                </div>");
+                                        }
+                                        else {
+                                            $("#alert_feedback").append("<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">\n" +
+                                                "                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n" +
+                                                "                    <strong>不明错误!</strong>" +data["message"]+
+                                                "                </div>");
+                                        }
+
+                                        $("#submit").removeClass("disabled");
+                                        $("#submit").addClass("btn-default");
+                                        $("#submit").removeClass("btn-primary");
+                                        $("#submit").text("获取");
+                                        $('#submit').prop('disabled', false);
+
+                                    });
+                                }
+                            });
+                        });
+                    </script>
+                </form>
+            </div>
+        </div>
+	<div class="row clearfix">
+		<div class="col-md-12 column text-center">
+            <ul id="favlistul">
+            </ul>
+			<ul class="pagination" id="FavPagination">
+            </ul>
+		</div>
+        
+        <script>
+            function show_fav() {
+
+                $("#favlistul").empty();
+
+                $("#favlistul").append("<div class=\"table-responsive\"><table class=\"table table-responsive table-bordered table-striped table-hover\">\n" +
+                    "                    <thead>\n" +
+                    "                        <tr>\n" +
+                    "                            <th class=\"text-center\">av号</th>\n" +
+                    "                            <th class=\"text-center\">标题</th>\n" +
+                    "                            <th class=\"text-center\">封面链接</th>\n" +
+                    "                            <th class=\"text-center\">状态</th>\n" +
+                    "                        </tr>\n" +
+                    "                    </thead>\n" +
+                    "                    <tbody id=\"favlist\">\n" +
+                    "                    </tbody>\n" +
+                    "                </table></div>");
+
+                 var options={
+                     currentPage: 1,
+                     totalPages: favdata.length,
+                     size:"normal",
+                     numberOfPages:5,
+                     bootstrapMajorVersion: 3,
+                     alignment:"center",
+                     onPageClicked : function (event, originalEvent, type, page) {
+                        $("#favlist").empty();
+                        var pagelist  = favdata[page-1];
+                        for (var i=0;i < pagelist.length;i++){
+                            var temp = "<tr>"+
+                                "<th><a href=\"https://www.bilibili.com/video/av"+ pagelist[i]["aid"] +"\">"+ pagelist[i]["aid"] + "</a></th>"+
+                                "<th>"+ pagelist[i]["title"] + "</th>"+
+                                "<th><a href=\""+ pagelist[i]["pic"] +"\">"+ pagelist[i]["pic"] + "</a></th>"+
+                                "<th>"+ pagelist[i]["state"] + "</th>"+
+                                "</tr>";
+                            $("#favlist").append(temp);
+                        }
+                    },
+                    onPageChanged: function (event, oldPage, newPage) {
+                        $("#favlist").empty();
+                        var pagelist  = favdata[newPage-1];
+                        for (var i=0;i < pagelist.length;i++){
+                            var temp = "<tr>"+
+                                "<th><a href=\"https://www.bilibili.com/video/av"+ pagelist[i]["aid"] +"\">"+ pagelist[i]["aid"] + "</a></th>"+
+                                "<th>"+ pagelist[i]["title"] + "</th>"+
+                                "<th><a href=\""+ pagelist[i]["pic"] +"\">"+ pagelist[i]["pic"] + "</a></th>"+
+                                "<th>"+ pagelist[i]["state"] + "</th>"+
+                                "</tr>";
+                            $("#favlist").append(temp);
+                        }
+                    }
+                 };
+
+                $('#FavPagination').bootstrapPaginator(options);
+
+                 $("#favlist").empty();
+                var pagelist  = favdata[0];
+                for (var i=0;i < pagelist.length;i++){
+                    var temp = "<tr>"+
+                       "<th><a href=\"https://www.bilibili.com/video/av"+ pagelist[i]["aid"] +"\">"+ pagelist[i]["aid"] + "</a></th>"+
+                        "<th>"+ pagelist[i]["title"] + "</th>"+
+                        "<th><a href=\""+ pagelist[i]["pic"] +"\">"+ pagelist[i]["pic"] + "</a></th>"+
+                        "<th>"+ pagelist[i]["state"] + "</th>"+
+                        "</tr>";
+                    $("#favlist").append(temp);
+                }
+
+            }
+        </script>
+	</div>
+    </div>
+
+
+{% endblock %}

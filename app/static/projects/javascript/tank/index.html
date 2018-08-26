@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Tank</title>
+<script language="javascript" src="./main.js"></script>
+<link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+
+<body onkeydown="checkkeydown(event)" onkeyup="checkkeyup(event)">
+	<div id="barrierspaper">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:40px;left:0px" id="ba0">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:0px;left:40px" id="ba1">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:100px;left:80px" id="ba2">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:10px;left:120px" id="ba3">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:0px;left:160px" id="ba4">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:64px;left:200px" id="ba5">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:200px;left:240px" id="ba6">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:50px;left:280px" id="ba7">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:0px;left:320px" id="ba8">
+		<img src="barriers.png" class="barriers" style="position:absolute;top:10px;left:360px" id="ba9">
+	</div>
+	<div id="bulletpaper">
+	</div>
+	<img id="tank" style="position:absolute;left:400px;top:240px;" class="tank" src="tank.png" ondblclick="systemcommand()" />
+</body>
+</html>

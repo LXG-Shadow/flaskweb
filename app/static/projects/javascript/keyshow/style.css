@@ -1,0 +1,49 @@
+body
+{
+	background-image: url(bg.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+.keylayer
+{
+	position: relative;
+	top: 50px;
+	left: 20px;
+}
+.keyup
+{
+	width: 70px;
+	height: 45px;
+	position: relative;
+	left: 80px;
+	margin: 5px;
+}
+
+.keysub
+{
+	width: 70px;
+	height: 45px;
+	float: left;
+	position: relative;
+	margin: 5px;
+}
+.key
+{
+	position: absolute;
+	left: 40%;
+	top: 25%;
+}
+.cpslayer
+{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.cpsvalue
+{
+	position: absolute;
+	width: 80px;
+	height: 20px;
+	left: 48%;
+	top: 55%;
+}

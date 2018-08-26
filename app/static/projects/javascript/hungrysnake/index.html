@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>HungrySnake</title>
+<script src="./main.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="./style.css" />
+</head>
+
+<body onkeydown="checkkey(event)" onkeyup="decelerate(event)">
+	<div id="foodlayer">
+		<img src="food.jpg"  alt="food" class="food" style="position: absolute;top: 160px;left: 160px;" id="fd0" />
+	</div>
+	<div id="snakelayer" class="snakelayer">
+		<img src="snakehead.png" alt="snakehead" class="snakehead" style="position: absolute;top: 120px;left: 120px;" id="snk0" />
+		<img src="snakebody.png" alt="snakebody" class="snakebody" style="position: absolute;top: 120px;left: 80px;" id="snk1" />
+	</div>
+	<div id="scoreboard" class="scoreboard">
+		<p id="current" class="current">Score: 0</p>
+		<p id="record" class="record">Record: 0</p>
+	</div>
+</body>
+</html>
