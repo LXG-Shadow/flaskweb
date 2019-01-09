@@ -1,0 +1,191 @@
+<div class="container">
+    <div class="page-header">
+        <h3>{% if edit %} 修改文章 {% else %} 发布文章 {% endif %}</h3>
+    </div>
+    <div class="row clearfix">
+        {% if message %}
+            {% import "/component/alert_macro.html" as alert %}
+            <div class="col-md-12" id="alert_feedback">
+                {% set msg =
+                message[1]+"，点击<a href=\""+url_for("blog.article-detail",id = article_id )+"\">这里</a>跳转到文章页面" %}
+                {{ alert.createAlert(message[0],msg,prefix="发布") }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <form action="" id="article_form" method="post" class="form">
+                {{ form.csrf_token }}
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">基本信息</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row clearfix">
+                                    <div class="col-md-6">
+                                            <span class="help-block">{{ form.title.label.text }}</span>
+                                        <div class="form-group">
+                                            {{ form.title(id="title", class="form-control",placeholder="输入标题") }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <span class="help-block">{{ form.type.label.text }}</span>
+                                            {{ form.type(id="articleType", class="form-control") }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <span class="help-block">{{ form.source.label.text }}</span>
+                                            {{ form.source(id="articleSource", class="form-control") }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    {{ form.summary.label.text }}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    {{ form.summary(id="summary", class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">输入</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    {{ form.content(only_input=True, class="form-control",rows="25", placeholder=form.content.label.text) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">预览</h3></div>
+                            <div class="panel-body">
+                                {{ form.content(only_preview=True) }}
+                            </div>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $("#flask-pagedown-content-preview").bind('DOMNodeInserted',
+                                    function (e) {
+                                        $("#flask-pagedown-content-preview img").addClass("img-responsive");
+                                    });
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                {% if user.group.permission >=2 %}
+                    <div class="row clearfix">
+                        <div class="col-md-3 col-md-offset-9">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        {{ form.no_clean(id="no_clean",type="checkbox") }}
+                                        高级模式(可以使用html元素如iframe)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="row clearfix">
+                    {% if edit %}
+                        <div class="col-md-6 text-left">
+                            <button class="btn btn-danger"
+                                    onclick="window.location.href='{{ url_for(siteInfo.blueprint+".article-delete",id=article_id) }}'">
+                                删除文章
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group text-right">
+                                <button class="btn btn-success" id="sbutton">发布</button>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="form-group text-right">
+                            <button class="btn btn-success" id="sbutton">发布</button>
+                        </div>
+                    {% endif %}
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $('#article_form').bootstrapValidator({
+                            live: 'disabled',
+                            message: 'This value is not valid',
+                            submitButtons: '#submitbutton',
+                            submitHandler: function (validator, form, submitButton) {
+                            },
+                            feedbackIcons: {
+                                valid: 'glyphicon glyphicon-ok',
+                                invalid: 'glyphicon glyphicon-remove',
+                                validating: 'glyphicon glyphicon-refresh'
+                            },
+                            fields: {
+                                title: {
+                                    message: '标题不正当',
+                                    validators: {
+                                        notEmpty: {
+                                            message: '标题不能为空'
+                                        },
+                                        stringLength: {
+                                            /*长度提示*/
+                                            min: 1,
+                                            max: 64,
+                                            message: '用户名长度必须在1到64之间'
+                                        }
+                                    }
+                                },
+                                summary: {
+                                    message: '简介不正当',
+                                    validators: {
+                                        notEmpty: {
+                                            message: '简介不能为空'
+                                        }
+                                    }
+                                },
+                                content: {
+                                    message: '内容不正当',
+                                    validators: {
+                                        notEmpty: {
+                                            message: '内容不能为空'
+                                        }
+                                    }
+                                }
+                            }
+                        }).on('success.form.bv',
+                            function (e) {
+                                e.preventDefault();
+                            });
+                        $("#sbutton").click(function (e) {
+                            $("#article_form").bootstrapValidator('validate');
+                            if ($("#article_form").data('bootstrapValidator').isValid()) {
+                                $("#article_form")[0].submit();
+                            }
+                        });
+                    })
+                </script>
+            </form>
+        </div>
+    </div>
+</div>

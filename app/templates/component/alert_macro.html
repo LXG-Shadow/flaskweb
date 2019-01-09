@@ -1,0 +1,12 @@
+{% macro createAlert(type,message, prefix='获取') %}
+    <div class="alert alert-{{ type }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+        {% if type == "success" %}
+            <strong>{{ prefix }}成功!</strong>
+        {% else %}
+            <strong>{{ prefix }}失败!</strong>
+        {% endif %}
+        {{ message | safe}}
+    </div>
+{% endmacro %}

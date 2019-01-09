@@ -1,0 +1,26 @@
+{% extends "common/base.html" %}
+
+
+{% block navbar %}
+    {% include 'component/navigator.html' %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock scripts %}
+
+{% block content %}
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-2 column fixed-top">
+                {% include "/admin/managebar.html" %}
+            </div>
+            <div class="col-md-10 column">
+                <div class="jumbotron">
+                    <h1>欢迎回来</h1>
+                    <h2>管理员 {{ user.name }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

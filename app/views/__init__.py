@@ -1,4 +1,4 @@
-from app.views import index
-from app.views import errorpage
-from app.views.project import *
-from app.views.projects import *
+from flask import Blueprint
+main = Blueprint('main',__name__)
+
+from . import views

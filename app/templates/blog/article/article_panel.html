@@ -1,0 +1,11 @@
+{% for article in pagination.items %}
+    {% if article.is_hide() and user.id != article.user.id and user.group.permission <3 %}
+        {% include "blog/article/article_panel_hide.html" %}
+    {% elif user.group.permission >= 2 or user.id == article.user.id %}
+        {% include "blog/article/article_panel_normal.html" %}
+    {% elif article.is_protected() %}
+        {% include "blog/article/article_panel_protected.html" %}
+    {% else %}
+        {% include "blog/article/article_panel_normal.html" %}
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,38 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+    {% if article %}
+        {{ siteInfo.title }}-{{ article.title }}
+    {% else %}
+        {{ siteInfo.title }}
+    {% endif %}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'component/navigator.html' %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/bootstrap-paginator.js') }}"></script>
+{% endblock scripts %}
+
+{% block content %}
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-8 column">
+                {% if siteInfo.endpoint == "blog.article-detail" %}
+                    {% include "blog/article/article_detail.html" %}
+                {% else %}
+                    {% include "blog/article/article_panel.html" %}
+                {% endif %}
+            </div>
+            <div class="col-md-4 column">
+                {% include "blog/sidebar.html" %}
+            </div>
+        </div>
+        {% if siteInfo.endpoint != "blog.article-detail" %}
+            {% include "component/pagination.html" %}
+        {% endif %}
+    </div>
+{% endblock %}

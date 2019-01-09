@@ -1,0 +1,27 @@
+{% extends "common/base.html" %}
+
+{% block title %}Project_{{ project.getCategory() }}_{{ project.getLanguage() }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h3 class="text-capitalize">
+                {{ project.getCategory() }}
+                <small>by {{ project.getLanguage() }}</small>
+            </h3>
+        </div>
+        {% for row in project.getProjects(col=3) %}
+            <div class="row clearfix">
+                {% for col in row %}
+                    <div class="col-md-4 column">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">{{ col["name"] }}</div>
+                            <div class="panel-body">{{ col["desc"] }}</div>
+                            <div class="panel-footer panel-info"><a href="{{ col["link"] }}">Link</a></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% if article.is_hide() and user.id != article.user.id and user.group.permission <3%}
+{% elif user.group.permission >= 2 or user.id == article.user.id %}
+    {% include "blog/article/article_detail_normal.html" %}
+{% elif article.is_protected() %}
+    {% include "blog/article/article_detail_protected.html" %}
+{% else %}
+    {% include "blog/article/article_detail_normal.html" %}
+{% endif %}

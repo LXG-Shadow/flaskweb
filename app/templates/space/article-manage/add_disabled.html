@@ -1,0 +1,107 @@
+<div class="container">
+    <div class="page-header">
+        <h3>
+            {% if edit %}
+                修改文章
+            {% else %}
+                发布文章
+            {% endif %}
+        </h3>
+    </div>
+    <div class="row clearfix">
+        {% if message %}
+            <div class="col-md-12" id="alert_feedback">
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <strong>发布成功! </strong> {{ message }}，
+                    点击<a href="{{ url_for("blog.article-detail",id = article_id ) }}">这里</a>跳转到文章页面
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row clearfix">
+        <form>
+            {{ form.csrf_token }}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">基本信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            <span class="help-block">{{ form.title.label.text }}</span>
+                            <div class="form-group">
+                                {{ form.title(id="title", class="form-control disabled",placeholder="输入标题") }}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="help-block">{{ form.type.label.text }}</span>
+                            {{ form.type(id="articleType", class="form-control disabled") }}
+                        </div>
+                        <div class="col-md-3">
+                            <span class="help-block">{{ form.source.label.text }}</span>
+                            {{ form.source(id="articleSource", class="form-control disabled") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                {{ form.summary.label.text }}
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                {{ form.summary(id="summary", class="form-control disabled") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                输入
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                {{ form.content(only_input=True,class="form-control disabled",rows="25", placeholder=form.content.label.text) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                预览
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            {{ form.content(only_preview=True) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $('#title').prop('disabled', true);
+                    $('#articleType').prop('disabled', true);
+                    $('#articleSource').prop('disabled', true);
+                    $('#summary').prop('disabled', true);
+                    $('#flask-pagedown-content').prop('disabled', true);
+                    $("#flask-pagedown-content-preview").bind('DOMNodeInserted', function (e) {
+                        $("#flask-pagedown-content-preview img").addClass("img-responsive");
+                    });
+                });
+            </script>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+    {{ siteInfo.title }}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'component/navigator.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h3>文件分享</h3>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-11 col-md-offset-1 column">
+                <h4>
+                    {% if file.password != "" %}密码已复制到剪贴板, {% endif %}正在跳转，请等待.....
+                </h4>
+                <p id="link">
+                </p>
+                <p id="ppsd">
+                    <strong>密码(点击复制): </strong> <input disabled id="psd" value="{{ file.password }}">
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#ppsd").click(function () {
+                var psd = document.getElementById("psd");
+                psd.disabled = false;
+                psd.select();
+                document.execCommand("copy", false, null);
+                psd.disabled = true;
+            });
+            $("#ppsd").trigger("click");
+        })
+    </script>
+{% endblock %}

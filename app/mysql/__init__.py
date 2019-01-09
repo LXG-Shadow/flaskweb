@@ -1,4 +1,5 @@
 import mysql.connector
+from .. import db
 
 def getData(table,*column,**where):
     try:

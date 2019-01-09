@@ -1,0 +1,8 @@
+<div class="btn-group btn-group-md">
+    <button type="button" class="btn btn-success"
+            onclick="window.location.href='{{ url_for("space.article-edit",id=article.id) }}'"><br/>Edit<br/><br/>
+    </button>
+    <button type="button" class="btn btn-danger"
+            onclick="window.location.href='{{ url_for("space.article-delete",id=article.id) }}'"><br/>Delete<br/><br/>
+    </button>
+</div>

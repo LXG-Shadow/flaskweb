@@ -1,0 +1,26 @@
+<div class="panel panel-info">
+    <div class="panel-heading text-center">{{ article.title }}</div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="clearfix row">
+                <div class="col-md-6 text-left">
+                    <span class="label label-default">日期 {{ article.create_time.strftime("%Y-%m-%d") }}</span>
+                    <span class="label label-warning">{{ article.source.name }}</span>
+                    <span class="label label-info">{{ article.type.name }}</span>
+                </div>
+                <div class="col-md-6 text-right">
+                    <span class="label label-primary">浏览 {{ article.num_of_view }}</span>
+                    <a href="{{ url_for("space.index",id=article.user.id) }}">
+                        <span class="label label-success">作者: {{ article.user.name }}</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="panel-body">
+        <p>{{ article.summary }}</p>
+    </div>
+    <div class="panel-footer panel-info text-center">
+        <a href="{{ url_for('blog.article-detail',id=article.id) }}">Link</a>
+    </div>
+</div>

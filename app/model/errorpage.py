@@ -1,6 +1,8 @@
-code_msg = {"404":["Page Not Found","没有该页面或页面已被删除"],
-            "500":["Internal Server Error","服务器内部错误，请联系管理员提交问题"],
-            "405":["Method Not Allowed","请使用正确方式调用api"]}
+code_msg = {"404":("Page Not Found","没有该页面或页面已被删除"),
+            "500":("Internal Server Error","服务器内部错误，请联系管理员提交问题"),
+            "405":("Method Not Allowed","请使用正确方式调用api"),
+            "401":("Unauthorized","请先登录"),
+            "403":("Forbidden","您没有权限进行这个操作")}
 
 
 class errorpage(object):

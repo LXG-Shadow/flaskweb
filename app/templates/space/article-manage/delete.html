@@ -1,0 +1,43 @@
+{% extends "common/base.html" %}
+
+{% block navbar %}
+    {% include 'component/navigator.html' %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h3>
+                删除文章
+            </h3>
+        </div>
+        <div class="row clearfix">
+            {% if message %}
+                <div class="col-md-12" id="alert_feedback">
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <strong>发布失败! </strong> {{ message }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="alert alert-danger text-center" role="alert">
+                    <h4><span class="glyphicon glyphicon-alert"></span> <strong>你确认要删除该文章嘛</strong></h4>
+                </div>
+                {% include "blog/article/article_panel_normal.html" %}
+            </div>
+        </div>
+        <div class="row clearfix">
+            <form action="" id="delete_form" method="post" class="form">
+                {{ form.csrf_token }}
+                <div class="form-group text-center">
+                    <button class="btn btn-danger" id="submit" type="submit">确认删除</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "common/base.html" %}
+
+{% block navbar %}
+    {% include 'component/navigator.html' %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/bootstrapValidator.js') }}"></script>
+{% endblock scripts %}
+
+{%- block styles %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/bootstrapValidator.css') }}" rel="stylesheet">
+{%- endblock styles %}
+
+{% block content %}
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-2 column">
+                {% include "/admin/managebar.html" %}
+            </div>
+            <div class="col-md-10 column">
+                <div class="row clearfix">
+                    {% if message %}
+                        {% import "/component/alert_macro.html" as alert %}
+                        <div class="col-md-8 col-md-offset-2" id="alert_feedback">
+                            {{ alert.createAlert(message[0],message[1],prefix="操作") }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-8 col-md-offset-2 page-header"><h3>文件信息编辑</h3></div>
+                    <div class="col-md-8 col-md-offset-2 column">
+                        <form action="" id="file_form" method="post" class="form">
+                            {{ form.csrf_token }}
+                            <label for="file_id">{{ form.id.label }}</label>
+                            <div class="form-group">
+                                {{ form.id(id="file_id", class="form-control",disabled=True,placeholder="Id") }}
+                            </div>
+                            <label for="alias">{{ form.alias.label }}</label>
+                            <div class="form-group">
+                                {{ form.alias(id="alias", class="form-control",placeholder="Alias") }}
+                            </div>
+                            <label for="description">{{ form.description.label }}</label>
+                            <div class="form-group">
+                                {{ form.description(id="description", class="form-control",placeholder="Description") }}
+                            </div>
+                            <label for="external">{{ form.external.label }}</label>
+                            <div class="form-group">
+                                {{ form.external(id="external", class="form-control",placeholder="External") }}
+                            </div>
+                            <label for="permission">{{ form.permission.label }}</label>
+                            <div class="form-group">
+                                {{ form.permission(id="permission", class="form-control") }}
+                            </div>
+                            <label for="link">{{ form.link.label }}</label>
+                            <div class="form-group">
+                                {{ form.link(id="link", class="form-control",placeholder="Link") }}
+                            </div>
+                            <label for="password">{{ form.password.label }}</label>
+                            <div class="form-group">
+                                {{ form.password(id="password", class="form-control",placeholder="Password") }}
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-success"
+                                        id="submitbutton">{{ form.submit.label.text }}</button>
+                            </div>
+                        </form>
+                        <script>
+                            $(document).ready(function () {
+                                $('#file_form').bootstrapValidator({
+                                    live: 'disabled',
+                                    message: 'This value is not valid',
+                                    submitButtons: '#submitbutton',
+                                    submitHandler: function (validator, form, submitButton) {
+                                    },
+                                    feedbackIcons: {
+                                        valid: 'glyphicon glyphicon-ok',
+                                        invalid: 'glyphicon glyphicon-remove',
+                                        validating: 'glyphicon glyphicon-refresh'
+                                    },
+                                    fields: {
+                                        alias: {
+                                            message: '别名不正当',
+                                            validators: {
+                                                notEmpty: {
+                                                    message: '别名不能为空'
+                                                },
+                                                stringLength: {
+                                                    /*长度提示*/
+                                                    min: 1,
+                                                    max: 16,
+                                                    message: '用户名长度必须在1到16之间'
+                                                }
+                                            }
+                                        }
+                                    }
+                                }).on('success.form.bv', function (e) {
+                                    e.preventDefault();
+                                });
+                                $("#submitbutton").click(function () {
+                                    $("#file_form").bootstrapValidator('validate');
+                                    if ($("#file_form").data('bootstrapValidator').isValid()) {
+                                        $("#file_form")[0].submit();
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "common/base.html" %}
+
+{% block navbar %}
+    {% include 'component/navigator.html' %}
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+    {{ pagedown.include_pagedown() }}
+    <script src="{{ url_for('static', filename='js/bootstrapValidator.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-paginator.js') }}"></script>
+{% endblock scripts %}
+
+{%- block styles %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/bootstrapValidator.css') }}" rel="stylesheet">
+{%- endblock styles %}
+
+{% block content %}
+        {% include "/space/article-manage/add_enabled.html" %}
+{% endblock %}

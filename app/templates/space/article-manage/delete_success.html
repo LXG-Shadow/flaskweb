@@ -1,0 +1,49 @@
+{% extends "common/base.html" %}
+
+{% block navbar %}
+    {% include 'component/navigator.html' %}
+{% endblock %}
+
+{% block title %}
+    删除文章
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h3>
+                删除文章
+            </h3>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="alert alert-success text-center" role="alert">
+                    <h4><span class="glyphicon glyphicon-alert"></span> <strong>文章已被删除</strong></h4>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-8 col-md-offset-2">
+                <p>标题</p>
+                <div class="well">{{ article.title }}(id:{{ article.id }})</div>
+                <p>原MarkDown</p>
+                <div class="well">{{ article.content_raw }}</div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default"
+                            onclick="window.location.href='{{ url_for("space.index",id=user.id) }}'">返回个人空间
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            onclick="window.location.href='{{ url_for("blog.index") }}'">返回首页
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            onclick="window.location.href='{{ url_for("space.articles",id=user.id) }}'">返回所有投稿
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

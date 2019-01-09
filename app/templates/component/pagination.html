@@ -1,0 +1,30 @@
+<div class="row clearfix">
+    <div class="col-md-12 column text-center">
+        <ul class="pagination" id="Pagination">
+        </ul>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            var options = {
+                currentPage: {{ pagination.page }},
+                totalPages: {{ pagination.pages }},
+                size: "normal",
+                numberOfPages: 5,
+                bootstrapMajorVersion: 3,
+                alignment: "center",
+                onPageClicked: function (event, originalEvent, type, page) {
+                        {% if para %}
+                            window.location.href = "{{ url_for(siteInfo.endpoint,**siteInfo.parameter) }}?page=" + page+
+                            {% for key,value in para.items() %}
+                                "&{{ key }}={{ value }}"
+                            {% endfor %};
+                        {% else %}
+                            window.location.href = "{{ url_for(siteInfo.endpoint,**siteInfo.parameter) }}?page=" + page;
+                        {% endif %}
+                }
+            };
+            $('#Pagination').bootstrapPaginator(options);
+        });
+    </script>
+</div>
