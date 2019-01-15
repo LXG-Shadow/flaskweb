@@ -1,14 +1,17 @@
 <div class="container">
     <div class="page-header">
-        <h3>{% if edit %} 修改文章 {% else %} 发布文章 {% endif %}</h3>
+        <h3>{% if edit %} {{ _("Edit Article") }} {% else %} {{ _("New Article") }} {% endif %}</h3>
     </div>
     <div class="row clearfix">
         {% if message %}
             {% import "/component/alert_macro.html" as alert %}
             <div class="col-md-12" id="alert_feedback">
-                {% set msg =
-                message[1]+"，点击<a href=\""+url_for("blog.article-detail",id = article_id )+"\">这里</a>跳转到文章页面" %}
-                {{ alert.createAlert(message[0],msg,prefix="发布") }}
+                {% if message[0] == "success" %}
+                    {% set msg =_("{}，click <a href=\"{}\">here</a> to jump to the article page").format(message[1],url_for("blog.article-detail",id = article_id )) %}
+                {% else %}
+                    {% set msg = message[1] %}
+                {% endif %}
+                {{ alert.createAlert(message[0],msg,prefix=_("Release ")) }}
             </div>
         {% endif %}
     </div>
@@ -20,14 +23,14 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">基本信息</h3>
+                                <h3 class="panel-title">{{ _("Information") }}</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="row clearfix">
                                     <div class="col-md-6">
-                                            <span class="help-block">{{ form.title.label.text }}</span>
+                                        <span class="help-block">{{ form.title.label.text }}</span>
                                         <div class="form-group">
-                                            {{ form.title(id="title", class="form-control",placeholder="输入标题") }}
+                                            {{ form.title(id="title", class="form-control",placeholder=_("Enter Title")) }}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -66,7 +69,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">输入</h3>
+                                <h3 class="panel-title">{{ _("Content") }}</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="form-group">
@@ -78,7 +81,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">预览</h3></div>
+                                <h3 class="panel-title">{{ _("Preview") }}</h3></div>
                             <div class="panel-body">
                                 {{ form.content(only_preview=True) }}
                             </div>
@@ -101,7 +104,7 @@
                                 <div class="checkbox">
                                     <label>
                                         {{ form.no_clean(id="no_clean",type="checkbox") }}
-                                        高级模式(可以使用html元素如iframe)
+                                        {{ _("Advanced Mode (Enable elements like iframe)") }}
                                     </label>
                                 </div>
                             </div>
@@ -114,17 +117,17 @@
                         <div class="col-md-6 text-left">
                             <button class="btn btn-danger"
                                     onclick="window.location.href='{{ url_for(siteInfo.blueprint+".article-delete",id=article_id) }}'">
-                                删除文章
+                                {{ _("Delete Article") }}
                             </button>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group text-right">
-                                <button class="btn btn-success" id="sbutton">发布</button>
+                                <button class="btn btn-success" id="sbutton">{{ _("Release") }}</button>
                             </div>
                         </div>
                     {% else %}
                         <div class="form-group text-right">
-                            <button class="btn btn-success" id="sbutton">发布</button>
+                            <button class="btn btn-success" id="sbutton">{{ _("Release") }}</button>
                         </div>
                     {% endif %}
                 </div>
@@ -143,32 +146,32 @@
                             },
                             fields: {
                                 title: {
-                                    message: '标题不正当',
+                                    message: '{{ _("Invalid Title") }}',
                                     validators: {
                                         notEmpty: {
-                                            message: '标题不能为空'
+                                            message: '{{ _("Title can not be empty") }}'
                                         },
                                         stringLength: {
                                             /*长度提示*/
                                             min: 1,
                                             max: 64,
-                                            message: '用户名长度必须在1到64之间'
+                                            message: '{{ _("Title length should in 1 to 64") }}'
                                         }
                                     }
                                 },
                                 summary: {
-                                    message: '简介不正当',
+                                    message: '{{ _("Invalid summary") }}',
                                     validators: {
                                         notEmpty: {
-                                            message: '简介不能为空'
+                                            message: '{{ _("Summary can not be empty") }}'
                                         }
                                     }
                                 },
                                 content: {
-                                    message: '内容不正当',
+                                    message: '{{ _("Invalid content") }}',
                                     validators: {
                                         notEmpty: {
-                                            message: '内容不能为空'
+                                            message: '{{ _("content can not be empty") }}'
                                         }
                                     }
                                 }

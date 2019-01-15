@@ -1,11 +1,11 @@
 <div class="list-group">
     <div class="list-group-item list-group-item-info">Blog</div>
-    <a href="{{ url_for("admin.article-manage") }}" class="list-group-item">管理文章</a>
-    <a class="list-group-item disabled">管理分类</a>
+    <a href="{{ url_for("admin.article-manage") }}" class="list-group-item">{{ _("Article Management") }}</a>
+    <a class="list-group-item disabled">{{ _("Type Management") }}</a>
 </div>
 <div class="list-group">
     <div class="list-group-item list-group-item-info">Files</div>
-    <a href="{{ url_for("admin.file-manage") }}" class="list-group-item">文件管理</a>
+    <a href="{{ url_for("admin.file-manage") }}" class="list-group-item">{{ _("File Management") }}</a>
 </div>
 <div class="list-group">
     <div class="list-group-item list-group-item-info">Projects</div>
@@ -13,7 +13,7 @@
 </div>
 <div class="list-group">
     <div class="list-group-item list-group-item-info">User</div>
-    <a href="{{ url_for("admin.user-manage") }}" class="list-group-item dropdown">用户管理</a>
+    <a href="{{ url_for("admin.user-manage") }}" class="list-group-item dropdown">{{ _("User Management") }}</a>
 
-    <a class="list-group-item disabled">用户组</a>
+    <a class="list-group-item disabled">{{ _("UserGroup Management") }}</a>
 </div>

@@ -11,29 +11,29 @@
 {% block content %}
     <div class="container">
         <div class="page-header">
-            <h3>{{ page_user.name }} --- 用户空间</h3>
+            <h3>{{ page_user.name }} --- {{ _("Space") }}</h3>
         </div>
         <div class="row clearfix">
             <div class="col-md-12 column text-center">
                 <h4>
-                    用户名：{{ page_user.name }} (ID: {{ page_user.id }})
+                    {{ _("Username") }}：{{ page_user.name }} (ID: {{ page_user.id }})
                 </h4>
                 <p>
-                    用户组: {{ page_user.group.name }}
+                    {{ _("User Group") }}: {{ page_user.group.name }}
                 </p>
                 <p>
-                    Email: {{ page_user.email }}
+                    {{ _("Email") }}: {{ page_user.email }}
                 </p>
 
                 <p>
                     <a href="{{ url_for("space.articles",id=page_user.id) }}">
-                        所有投稿
+                        {{ _("All Articles") }}
                     </a>
                 </p>
                 {% if page_user.id == user.id %}
                     <p>
                         <a href="{{ url_for("space.edit") }}">
-                            修改个人资料
+                            {{ _("Edit Profile") }}
                         </a>
                     </p>
                 {% endif %}

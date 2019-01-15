@@ -9,30 +9,30 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="deleteModalLabel">删除文件</h4>
+                    <h4 class="modal-title" id="deleteModalLabel">{{ _("Delete File") }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="file_id" class="control-label">文件ID:</label>
+                        <label for="file_id" class="control-label">{{ _("File Id") }}:</label>
                         <input type="text" disabled class="form-control" id="file_id_show">
                         {{ form.id(class="form-control",id="file_id",type="hidden") }}
                     </div>
                     <div class="form-group">
-                        <label for="file_alias" class="control-label">文件别名:</label>
+                        <label for="file_alias" class="control-label">{{ _("File Alias") }}:</label>
                         <input type="text" disabled class="form-control" id="file_alias">
                     </div>
                     <div class="form-group">
-                        <label for="file_link" class="control-label">文件链接:</label>
+                        <label for="file_link" class="control-label">{{ _("File Link") }}:</label>
                         <input type="text" disabled class="form-control" id="file_link">
                     </div>
                     <div class="form-group">
-                        <label for="file_password" class="control-label">文件密码:</label>
+                        <label for="file_password" class="control-label">{{ _("File Password") }}:</label>
                         <input type="text" disabled class="form-control" id="file_password">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">确认删除</button>
+                    <button type="submit" class="btn btn-danger">{{ _("Confirm") }}</button>
                 </div>
             </form>
         </div>

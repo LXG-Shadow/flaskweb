@@ -9,27 +9,27 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="deleteModalLabel">删除文章</h4>
+                    <h4 class="modal-title" id="deleteModalLabel">{{ _("Delete Article") }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="article_id" class="control-label">文章ID:</label>
+                        <label for="article_id" class="control-label">{{ _("Article") }}ID:</label>
                         <input type="text" disabled class="form-control" id="article_id_show">
                         {{ form.id(class="form-control",id="article_id",type="hidden") }}
                     </div>
                     <div class="form-group">
-                        <label for="article_name" class="control-label">文章名字:</label>
+                        <label for="article_name" class="control-label">{{ _("Title") }}:</label>
                         <input type="text" disabled class="form-control" id="article_title">
                     </div>
                     <div class="form-group">
-                        <label for="article_author" class="control-label">文章作者:</label>
+                        <label for="article_author" class="control-label">{{ _("Author") }}:</label>
                         <input type="text" disabled class="form-control" id="article_author">
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">确认删除</button>
+                    <button type="submit" class="btn btn-danger">{{ _("Confirm") }}</button>
                 </div>
             </form>
         </div>

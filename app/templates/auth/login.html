@@ -17,7 +17,7 @@
             <div class="col-md-12" id="alert_feedback">
                  {% if message %}
                     {% import "/component/alert_macro.html" as alert %}
-                    {{ alert.createAlert(message[0],message[1],prefix="登陆") }}
+                    {{ alert.createAlert(message[0],message[1],prefix=_("Login ")) }}
                 {% endif %}
             </div>
         </div>
@@ -56,30 +56,30 @@
                             },
                             fields: {
                                 username: {
-                                    message: '用户名不正当',
+                                    message: '{{ _("Invalid Username") }}',
                                     validators: {
                                         notEmpty: {
-                                            message: '用户名不能为空'
+                                            message: '{{ _("Username Can not be empty") }}'
                                         },
                                         stringLength: {
                                             /*长度提示*/
                                             min: 4,
                                             max: 16,
-                                            message: '用户名长度必须在4到16之间'
+                                            message: '{{ _("The length of username is in 4 to 16") }}'
                                         }
                                     }
                                 },
                                 password: {
-                                    message: '密码不正当',
+                                    message: '{{ _("Invalid Password") }}',
                                     validators: {
                                         notEmpty: {
-                                            message: '密码不能为空'
+                                            message: '{{ _("Password Can not be empty") }}'
                                         },
                                         stringLength: {
                                             /*长度提示*/
                                             min: 6,
                                             max: 16,
-                                            message: '密码长度必须在6到16之间'
+                                            message: '{{ _("The length of password is in 6 to 16") }}'
                                         }
                                     }
                                 }

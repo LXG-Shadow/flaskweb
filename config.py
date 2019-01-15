@@ -5,11 +5,11 @@ class Config:
     SECRET_KEY = 'LXGSHADOWLLLLL1234569'
     JSON_AS_ASCII = False
     CSRF_ENABLED = True
-    MYSQL_USER = "root"
-    MYSQL_PSD = "root"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://lxgshado_admin:adminlyc6969@localhost:3306/lxgshado_website'
+    BABEL_DEFAULT_LOCALE = 'en'
+    LANGUAGES = ['en',"zh_CN","zh"]
     ITEMS_PER_PAGE = 10
     @staticmethod
     def init_app(app):

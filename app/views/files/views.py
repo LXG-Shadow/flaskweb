@@ -1,11 +1,12 @@
-from . import files
 from flask import abort, render_template, request
+from flask_babel import lazy_gettext as _l
+from . import files
 from ...model.file import file
 from app.decorator import get_user, get_siteInfo
 
 
 @files.route("/detail", endpoint="detail")
-@get_siteInfo("文件详情")
+@get_siteInfo(_l("File Detail"))
 @get_user
 def files_detail(*args, **kwargs):
     id = request.args.get('id', 0, type=int)

@@ -1,9 +1,5 @@
 {% extends "common/base.html" %}
 
-{% block title %}
-    文章管理
-{% endblock %}
-
 {% block navbar %}
     {% include 'component/navigator.html' %}
 {% endblock %}
@@ -24,38 +20,38 @@
                     {% if message %}
                         {% import "/component/alert_macro.html" as alert %}
                         <div class="col-md-8 col-md-offset-2" id="alert_feedback">
-                            {{ alert.createAlert(message[0],message[1],prefix="操作") }}
+                            {{ alert.createAlert(message[0],message[1],prefix=_("Operation ")) }}
                         </div>
                     {% endif %}
                 </div>
                 <div class="row clearfix">
-                    <div class="col-md-8 col-md-offset-2 page-header"><h3>文章管理</h3></div>
+                    <div class="col-md-8 col-md-offset-2 page-header"><h3>{{ _("Article Management") }}</h3></div>
                     <div class="col-md-8 col-md-offset-2">
                         <div class="row clearfix">
                             <form class="form" action="" method="get">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input class="form-control" name="title" placeholder="标题"/>
+                                        <input class="form-control" name="title" placeholder="{{ _("Title") }}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input class="form-control" name="user" placeholder="作者"/>
+                                        <input class="form-control" name="user" placeholder="{{ _("Author") }}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input class="form-control" name="type" placeholder="分类"/>
+                                        <input class="form-control" name="type" placeholder="{{ _("Type") }}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input class="form-control" name="source" placeholder="来源"/>
+                                        <input class="form-control" name="source" placeholder="{{ _("Source") }}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <button class="btn btn-info">查询</button>
+                                        <button class="btn btn-info">{{ _("Search") }}</button>
                                     </div>
                                 </div>
                             </form>
@@ -66,12 +62,12 @@
                             <thead>
                             <tr class="info">
                                 <th>ID</th>
-                                <th>标题</th>
-                                <th>作者</th>
-                                <th>分类</th>
-                                <th>来源</th>
-                                <th>编辑</th>
-                                <th>删除</th>
+                                <th>{{ _("Title") }}</th>
+                                <th>{{ _("Author") }}</th>
+                                <th>{{ _("Type") }}</th>
+                                <th>{{ _("Source") }}</th>
+                                <th>{{ _("Edit") }}</th>
+                                <th>{{ _("Delete") }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -108,7 +104,7 @@
                     </div>
                     <div class="col-md-1 col-md-offset-2">
                         <a class="btn btn-sm btn-default" href="{{ url_for("space.article-add") }}">
-                            <span class="glyphicon glyphicon-plus"></span> 发布文章
+                            <span class="glyphicon glyphicon-plus"></span> {{ _("New Article") }}
                         </a>
                     </div>
                 </div>

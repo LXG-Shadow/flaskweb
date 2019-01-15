@@ -7,16 +7,10 @@ def get_user(funa):
 
     @wraps(funa)
     def user_wrapper(*args,**kwargs):
-        auth = request.cookies.get("auth")
+        auth = request.cookies.get("_auth")
         if auth is None:
             return funa(**kwargs,user=user.initNone())
-        auth = urlsafe_b64decode(auth).decode()
-        auth = auth.split("_")
-        if len(auth) < 2:
-            return funa(**kwargs,user=user.initNone())
-        usr = user.initFromId(auth[0])
-        if usr.is_anonymous() or not usr.is_authenticate(psd=auth[1]):
-            return funa(**kwargs,user=user.initNone())
-        return funa(**kwargs,user=usr)
-
+        if not user.checkAuthString(auth):
+            return funa(**kwargs, user=user.initNone())
+        return funa(**kwargs,user=user.initFromPayload(auth.split(".")[1]))
     return user_wrapper

@@ -3,7 +3,6 @@ from flask import abort,render_template,redirect
 from app.model.projects import projects as projects_model
 from app.decorator import get_user
 
-
 @projects.route("/<language>/<category>")
 @get_user
 def projects_display(*args,**kwargs):

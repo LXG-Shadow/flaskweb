@@ -4,12 +4,12 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-        <li role="presentation"><a href="{{ url_for("space.index",id=user.id) }}">个人空间</a></li>
-        <li role="presentation"><a href="{{ url_for("space.articles",id=user.id) }}">投稿管理</a></li>
-        <li role="presentation"><a href="{{ url_for("space.article-add") }}">发布文章</a></li>
+        <li role="presentation"><a href="{{ url_for("space.index",id=user.id) }}">{{ _('Space') }}</a></li>
+        <li role="presentation"><a href="{{ url_for("space.articles",id=user.id) }}">{{ _("Article Management") }}</a></li>
+        <li role="presentation"><a href="{{ url_for("space.article-add") }}">{{ _("New Article") }}</a></li>
         {% if user.group.permission >=3 %}
             <li class="divider"></li>
-            <li role="presentation"><a href="{{ url_for("admin.index") }}">管理后台</a></li>
+            <li role="presentation"><a href="{{ url_for("admin.index") }}">{{ _("Admin Backend") }}</a></li>
         {% endif %}
         <li class="divider"></li>
         <li role="presentation">

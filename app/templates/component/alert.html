@@ -2,9 +2,9 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">×</span></button>
     {% if message[0] == "success" %}
-        <strong>成功!</strong>
+        <strong>{{ _("Success!") }}</strong>
     {% else %}
-        <strong>失败!</strong>
+        <strong>{{ _("Fail!") }}</strong>
     {% endif %}
     {{ message[1] }}
 </div>

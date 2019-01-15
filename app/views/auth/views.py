@@ -1,4 +1,5 @@
 from flask import render_template, redirect,current_app,flash
+from flask_babel import lazy_gettext as _l
 from app import codesmap,newjson
 from . import auth
 from .forms import LoginForm
@@ -8,7 +9,7 @@ import datetime
 
 @auth.route('/login',endpoint="login" ,methods=['GET'])
 @get_user
-@get_siteInfo("登陆-Login")
+@get_siteInfo(_l("Login"))
 def login(*args,**kwargs):
     if not kwargs["user"].is_anonymous():
         return redirect("/")
@@ -24,12 +25,10 @@ def login_verify(*args,**kwargs):
         username = form.username.data
         password = form.password.data
         user0 = user.initFromName(username)
-        if (user0.is_anonymous() or not user0.is_authenticate(password)):
+        if (user0.is_anonymous() or not user0.checkPassword(password)):
             return render_template("/auth/login.html",form=form,message=("warning",codesmap["8"]),**kwargs)
         resp = current_app.make_response(redirect("/"))
-        expiredtime = datetime.datetime.utcnow()
-        expiredtime = expiredtime + datetime.timedelta(days=1)
-        resp.set_cookie("auth", user0.getAuthString(password), expires=expiredtime)
+        resp.set_cookie("_auth", user0.getAuthString())
         return resp
     else:
         return render_template("/auth/login.html", form=form,message=("danger",codesmap["-1"]), **kwargs)
@@ -37,8 +36,8 @@ def login_verify(*args,**kwargs):
 
 @auth.route("/auth/logout",endpoint="logout", methods=["GET","POST"])
 @login_auth_view
-@get_siteInfo("登出")
+@get_siteInfo(_l("Logout"))
 def logout(**kwargs):
     resp = current_app.make_response(redirect("/"))
-    resp.delete_cookie("auth")
+    resp.delete_cookie("_auth")
     return resp

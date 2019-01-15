@@ -1,9 +1,5 @@
 {% extends "common/base.html" %}
 
-{% block title %}
-    {{ siteInfo.title }}
-{% endblock %}
-
 {% block navbar %}
     {% include 'component/navigator.html' %}
 {% endblock %}
@@ -11,7 +7,7 @@
 {% block content %}
     <div class="container">
         <div class="page-header">
-            <h3>文件信息</h3>
+            <h3>{{ _("File Information") }}</h3>
         </div>
         <div class="row clearfix">
             <div class="col-md-11 col-md-offset-1 column">
@@ -19,13 +15,13 @@
                     {{ file.alias }}
                 </h4>
                 <p>
-                    <strong>简介: </strong>{{ file.description }}
+                    <strong>{{ _("Description") }}: </strong>{{ file.description }}
                 </p>
                 <p>
-                    <strong>链接(点击跳转): </strong><a href="{{ file.link }}">{{ file.link }}</a>
+                    <strong>{{ _("Link(click to jump to the link)") }}: </strong><a href="{{ file.link }}">{{ file.link }}</a>
                 </p>
                 <p onclick="copypsd()">
-                    <strong>密码(点击复制): </strong> <input disabled id="psd" value="{{ file.password }}">(Safair用户请手动复制)
+                    <strong>{{ _("Password(click to copy)") }}: </strong> <input disabled id="psd" value="{{ file.password }}">(Safair用户请手动复制)
                 </p>
             </div>
         </div>
@@ -40,7 +36,7 @@
         psd.select();
         document.execCommand("copy");
         psd.disabled = true;
-        alert("密码复制成功");
+        alert("{{ _("Password was copied in to your clipboard") }}");
         {% endif %}
     }
     </script>

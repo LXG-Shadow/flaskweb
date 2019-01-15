@@ -1,4 +1,5 @@
 from flask import request, abort, render_template, flash, redirect, url_for
+from flask_babel import lazy_gettext as _l
 from ... import codesmap
 from .forms import PageDownForm, AdvancedPageDownForm, DeleteForm, ProfileEditForm
 from . import space
@@ -9,7 +10,7 @@ from ...model.blog import articles, article
 
 @space.route("/<int:id>", endpoint="index")
 @get_user
-@get_siteInfo("用户空间")
+@get_siteInfo(_l("Space"))
 def space_index(**kwargs):
     id = kwargs.pop("id")
     if id == 0:
@@ -26,7 +27,7 @@ def space_index(**kwargs):
 
 @space.route("/<int:id>/articles", endpoint="articles")
 @get_user
-@get_siteInfo("用户投稿")
+@get_siteInfo(_l("All Articles"))
 def space_articles(**kwargs):
     id = kwargs.pop("id")
     if id == 0:
@@ -43,7 +44,7 @@ def space_articles(**kwargs):
 
 @space.route("/edit", endpoint="edit", methods=["GET", "POST"])
 @login_auth_view
-@get_siteInfo("修改资料")
+@get_siteInfo(_l("Edit Profile"))
 def space_edit(**kwargs):
     form = ProfileEditForm()
     if request.method == "POST":
@@ -68,7 +69,7 @@ def space_edit(**kwargs):
 
 @space.route("/article-manage/add", endpoint="article-add", methods=["GET", "POST"])
 @login_auth_view
-@get_siteInfo("发布文章")
+@get_siteInfo(_l("New Article"))
 def space_article_add(**kwargs):
     if kwargs["user"].group.permission >= 2:
         form = AdvancedPageDownForm()
@@ -94,7 +95,7 @@ def space_article_add(**kwargs):
                                        article_id=status[2], **kwargs)
             else:
                 return render_template('/space/article-manage/add.html', form=form,
-                                       message=("warning", codesmap[str(status[1])]), edit=True, **kwargs)
+                                       message=("warning", codesmap[str(status[1])]), **kwargs)
         return render_template('/space/article-manage/add.html',
                                message=("warning", codesmap[str(-1)]),
                                form=form, **kwargs)
@@ -103,7 +104,7 @@ def space_article_add(**kwargs):
 
 @space.route("article-manage/edit/<int:id>", endpoint="article-edit", methods=["GET", "POST"])
 @login_auth_view
-@get_siteInfo("修改文章")
+@get_siteInfo(_l("Edit Article"))
 def space_aricle_edit(**kwargs):
     if kwargs["user"].group.permission >= 2:
         form = AdvancedPageDownForm()
@@ -148,7 +149,7 @@ def space_aricle_edit(**kwargs):
 
 @space.route("/article-manage/delete/<int:id>", endpoint="article-delete", methods=["GET", "POST"])
 @login_auth_view
-@get_siteInfo("删除文章")
+@get_siteInfo(_l("Delete Article"))
 def space_article_delete(**kwargs):
     form = DeleteForm()
     article0 = article.initFromId(kwargs["id"])

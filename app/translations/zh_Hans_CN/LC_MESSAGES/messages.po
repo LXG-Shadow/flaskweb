@@ -1,0 +1,615 @@
+# Chinese (Simplified, China) translations for .
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the  project.
+# LXG_Shadow <admin@lxgshadow.us>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version:  1.0\n"
+"Report-Msgid-Bugs-To: admin@lxgshadow.us\n"
+"POT-Creation-Date: 2019-01-15 10:59+0800\n"
+"PO-Revision-Date: 2019-01-14 21:38+0800\n"
+"Last-Translator: LXG_Shadow\n"
+"Language: zh_Hans_CN\n"
+"Language-Team: LXG_Shadow\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: app/__init__.py:23
+msgid "Invalid Parameters"
+msgstr "传入参数错误"
+
+#: app/__init__.py:24
+msgid "This method is not supported by this URL"
+msgstr "请求方式不支持"
+
+#: app/__init__.py:25
+msgid "Server Internal Error"
+msgstr "服务器内部错误"
+
+#: app/__init__.py:26
+msgid "Get Success"
+msgstr "获取成功"
+
+#: app/__init__.py:29
+msgid "This username already exists"
+msgstr "用户名已存在"
+
+#: app/__init__.py:30
+msgid "This email already exists"
+msgstr "邮箱已存在"
+
+#: app/__init__.py:31
+msgid "Register Success"
+msgstr "注册成功"
+
+#: app/__init__.py:32
+msgid "You have not login in"
+msgstr "未登录"
+
+#: app/__init__.py:33
+msgid "Invalid username or password"
+msgstr "用户名或密码错误"
+
+#: app/__init__.py:34
+msgid "Login Success"
+msgstr "登陆成功"
+
+#: app/__init__.py:35
+msgid "Logout Success"
+msgstr "登出成功"
+
+#: app/__init__.py:36
+msgid "This article title already exists"
+msgstr "文章标题重复"
+
+#: app/__init__.py:37
+msgid "Post article success"
+msgstr "发表文章成功"
+
+#: app/__init__.py:38
+msgid "This article not exists"
+msgstr "没有此文章"
+
+#: app/__init__.py:39
+msgid "Updated article success"
+msgstr "更新文章成功"
+
+#: app/__init__.py:40
+msgid "Delete article success"
+msgstr "删除文章成功"
+
+#: app/__init__.py:41
+msgid "Updated success"
+msgstr "修改成功"
+
+#: app/__init__.py:42
+msgid "This file does not exists or already be deleted"
+msgstr "没有该文件或文件已被删除"
+
+#: app/__init__.py:43
+msgid "Delete file success"
+msgstr "删除文件成功"
+
+#: app/__init__.py:44
+msgid "Add file success"
+msgstr "添加文件成功"
+
+#: app/__init__.py:45
+msgid "Updated file information success"
+msgstr "文件信息修改成功"
+
+#: app/__init__.py:46
+msgid "Same name already exists"
+msgstr "相同名称已存在"
+
+#: app/templates/admin/index.html:20
+msgid "Welcome"
+msgstr "欢迎"
+
+#: app/templates/admin/index.html:21
+msgid "Admin"
+msgstr "管理员"
+
+#: app/templates/admin/article-manage/article_manage.html:28
+#: app/templates/admin/managebar.html:3
+#: app/templates/component/navigator_user.html:8 app/views/admin/views.py:107
+msgid "Article Management"
+msgstr "文章管理"
+
+#: app/templates/admin/managebar.html:4
+msgid "Type Management"
+msgstr "分类管理"
+
+#: app/templates/admin/file-manage/file_manage.html:28
+#: app/templates/admin/managebar.html:8 app/views/admin/views.py:203
+msgid "File Management"
+msgstr "文件管理"
+
+#: app/templates/admin/managebar.html:16
+#: app/templates/admin/user/user_manage.html:20 app/views/admin/views.py:23
+msgid "User Management"
+msgstr "用户管理"
+
+#: app/templates/admin/managebar.html:18
+msgid "UserGroup Management"
+msgstr "用户组管理"
+
+#: app/templates/admin/article-manage/article_manage.html:23
+msgid "Operation "
+msgstr "操作"
+
+#: app/templates/admin/article-manage/article_manage.html:34
+#: app/templates/admin/article-manage/article_manage.html:65
+#: app/templates/admin/article-manage/article_manage_delete.html:21
+#: app/templates/space/article-manage/delete_success.html:24
+#: app/views/admin/forms.py:29 app/views/space/forms.py:10
+msgid "Title"
+msgstr "标题"
+
+#: app/templates/admin/article-manage/article_manage.html:39
+#: app/templates/admin/article-manage/article_manage.html:66
+#: app/templates/admin/article-manage/article_manage_delete.html:25
+#: app/templates/blog/article/article_detail_normal.html:14
+#: app/templates/blog/article/article_panel_normal.html:14
+msgid "Author"
+msgstr "作者"
+
+#: app/templates/admin/article-manage/article_manage.html:44
+#: app/templates/admin/article-manage/article_manage.html:67
+#: app/views/admin/forms.py:31 app/views/space/forms.py:12
+msgid "Type"
+msgstr "类型"
+
+#: app/templates/admin/article-manage/article_manage.html:49
+#: app/templates/admin/article-manage/article_manage.html:68
+#: app/views/admin/forms.py:30 app/views/space/forms.py:11
+msgid "Source"
+msgstr "来源"
+
+#: app/templates/admin/article-manage/article_manage.html:54
+#: app/templates/admin/file-manage/file_manage.html:39
+msgid "Search"
+msgstr "搜索"
+
+#: app/templates/admin/article-manage/article_manage.html:69
+#: app/templates/admin/file-manage/file_manage.html:55
+#: app/templates/admin/user/user_manage.html:29
+#: app/templates/blog/article/article_detail_normal.html:34
+msgid "Edit"
+msgstr "编辑"
+
+#: app/templates/admin/article-manage/article_manage.html:70
+#: app/templates/admin/file-manage/file_manage.html:56
+msgid "Delete"
+msgstr "删除"
+
+#: app/templates/admin/article-manage/article_manage.html:107
+#: app/templates/component/navigator_user.html:9
+#: app/templates/space/article-manage/add_enabled.html:3
+#: app/views/space/views.py:72
+msgid "New Article"
+msgstr "发布文章"
+
+#: app/templates/admin/article-manage/article_manage_delete.html:12
+#: app/templates/space/article-manage/add_enabled.html:116
+#: app/templates/space/article-manage/delete.html:12
+#: app/templates/space/article-manage/delete_success.html:12
+#: app/views/admin/views.py:182 app/views/space/views.py:152
+msgid "Delete Article"
+msgstr "删除文章"
+
+#: app/templates/admin/article-manage/article_manage_delete.html:16
+msgid "Article"
+msgstr "文章"
+
+#: app/templates/admin/article-manage/article_manage_delete.html:32
+#: app/templates/admin/file-manage/file_manage_delete.html:35
+#: app/templates/space/article-manage/delete.html:27
+#: app/views/admin/forms.py:55 app/views/space/forms.py:22
+msgid "Confirm"
+msgstr "确认"
+
+#: app/templates/admin/file-manage/file_manage.html:23
+#: app/templates/admin/user/user_manage_edit.html:29
+#: app/templates/space/profile-edit.html:28
+msgid "Updated "
+msgstr "更新"
+
+#: app/templates/admin/file-manage/file_manage.html:34
+#: app/templates/admin/file-manage/file_manage.html:50
+msgid "alias"
+msgstr "别名"
+
+#: app/templates/admin/file-manage/file_manage.html:51
+#: app/views/admin/forms.py:44
+msgid "External Link"
+msgstr "外链"
+
+#: app/templates/admin/file-manage/file_manage.html:52
+#: app/views/admin/forms.py:45
+msgid "Access Permission"
+msgstr "获取权限"
+
+#: app/templates/admin/file-manage/file_manage.html:53
+msgid "Original Link"
+msgstr "源链接"
+
+#: app/templates/admin/file-manage/file_manage.html:54
+msgid "Original Password"
+msgstr "源链接密码"
+
+#: app/templates/admin/file-manage/file_manage.html:68
+msgid "Yes"
+msgstr "是"
+
+#: app/templates/admin/file-manage/file_manage.html:68
+msgid "No"
+msgstr "否"
+
+#: app/templates/admin/file-manage/file_manage.html:71
+#: app/views/admin/forms.py:46
+msgid "Link"
+msgstr "链接"
+
+#: app/templates/admin/file-manage/file_manage.html:94
+#: app/views/admin/forms.py:51 app/views/admin/views.py:235
+msgid "New File"
+msgstr "添加文件"
+
+#: app/templates/admin/file-manage/file_manage_delete.html:12
+msgid "Delete File"
+msgstr "删除文件"
+
+#: app/templates/admin/file-manage/file_manage_delete.html:16
+msgid "File Id"
+msgstr "文件ID"
+
+#: app/templates/admin/file-manage/file_manage_delete.html:21
+msgid "File Alias"
+msgstr "文件别名"
+
+#: app/templates/admin/file-manage/file_manage_delete.html:25
+msgid "File Link"
+msgstr "文件链接"
+
+#: app/templates/admin/file-manage/file_manage_delete.html:29
+msgid "File Password"
+msgstr "文件密码"
+
+#: app/templates/admin/file-manage/file_manage_edit.html:33
+#: app/views/admin/views.py:260
+msgid "File Information Editor"
+msgstr "文件信息编辑"
+
+#: app/templates/admin/file-manage/file_manage_edit.html:85
+msgid "Invalid Alias"
+msgstr "别名不合法"
+
+#: app/templates/admin/file-manage/file_manage_edit.html:88
+msgid "Alias can not be empty"
+msgstr "别名不能为空"
+
+#: app/templates/admin/file-manage/file_manage_edit.html:94
+msgid "Alias length should in 1 to 64"
+msgstr "别名长度应在1-64之间"
+
+#: app/templates/admin/user/user_manage.html:26
+#: app/templates/space/index.html:19 app/views/admin/forms.py:12
+#: app/views/admin/forms.py:21 app/views/auth/forms.py:7
+#: app/views/space/forms.py:26
+msgid "Username"
+msgstr "用户名"
+
+#: app/templates/admin/user/user_manage.html:27
+#: app/templates/space/index.html:25 app/views/admin/forms.py:14
+#: app/views/admin/forms.py:23 app/views/space/forms.py:27
+msgid "Email"
+msgstr "邮箱"
+
+#: app/templates/admin/user/user_manage.html:28
+#: app/templates/space/index.html:22 app/views/admin/forms.py:15
+#: app/views/admin/forms.py:24
+msgid "User Group"
+msgstr "用户组"
+
+#: app/templates/admin/user/user_manage.html:53 app/views/admin/forms.py:25
+#: app/views/admin/views.py:75
+msgid "New User"
+msgstr "添加用户"
+
+#: app/templates/admin/user/user_manage_edit.html:34
+#: app/views/admin/views.py:34
+msgid "User Profile Editor"
+msgstr "用户信息编辑"
+
+#: app/templates/admin/user/user_manage_edit.html:83
+#: app/templates/auth/login.html:59 app/templates/space/profile-edit.html:68
+msgid "Invalid Username"
+msgstr "用户名不正当"
+
+#: app/templates/admin/user/user_manage_edit.html:86
+#: app/templates/auth/login.html:62 app/templates/space/profile-edit.html:71
+msgid "Username Can not be empty"
+msgstr "用户名不能为空"
+
+#: app/templates/admin/user/user_manage_edit.html:92
+#: app/templates/auth/login.html:68
+msgid "The length of username is in 4 to 16"
+msgstr "用户名长度必须在4到16之间"
+
+#: app/templates/admin/user/user_manage_edit.html:98
+#: app/templates/auth/login.html:73
+msgid "Invalid Password"
+msgstr "密码不正当"
+
+#: app/templates/admin/user/user_manage_edit.html:101
+#: app/templates/auth/login.html:76
+msgid "Password Can not be empty"
+msgstr "密码不能为空"
+
+#: app/templates/admin/user/user_manage_edit.html:107
+#: app/templates/auth/login.html:82
+msgid "The length of password is in 6 to 16"
+msgstr "密码长度必须在6到16之间"
+
+#: app/templates/admin/user/user_manage_edit.html:113
+#: app/templates/space/profile-edit.html:82
+msgid "Invalid Email"
+msgstr "邮箱不合法"
+
+#: app/templates/admin/user/user_manage_edit.html:116
+#: app/templates/admin/user/user_manage_edit.html:119
+#: app/templates/space/profile-edit.html:85
+#: app/templates/space/profile-edit.html:88
+msgid "Email Can not be empty"
+msgstr "邮箱不能为空"
+
+#: app/templates/admin/user/user_manage_edit.html:125
+#: app/templates/space/profile-edit.html:94
+msgid "The length of email is from 7 to 31"
+msgstr "邮箱长度必须在7到31之间"
+
+#: app/templates/auth/login.html:20
+msgid "Login "
+msgstr "登陆"
+
+#: app/templates/blog/article/article_detail_normal.html:12
+#: app/templates/blog/article/article_panel_normal.html:12
+#: app/templates/blog/sidebar.html:4
+msgid "Visits"
+msgstr "浏览"
+
+#: app/templates/blog/sidebar.html:7
+msgid "Article Number"
+msgstr "博客总数"
+
+#: app/templates/blog/article/article_detail_normal.html:7
+#: app/templates/blog/article/article_panel_normal.html:7
+msgid "Date"
+msgstr "日期"
+
+#: app/templates/blog/article/article_detail_normal.html:28
+msgid "Latest Updated Time"
+msgstr "最后更新日期"
+
+#: app/templates/blog/article/article_detail_protected.html:4
+#: app/templates/blog/article/article_panel_protected.html:4
+msgid ""
+"This article has been protected. Make sure you have permission to access "
+"it."
+msgstr "该文章受到保护, 请确认您有权限(Advanced User 及以上)"
+
+#: app/templates/blog/article/article_panel_hide.html:2
+msgid "Hided"
+msgstr "该文章已隐藏"
+
+#: app/templates/component/alert.html:5
+#: app/templates/component/alert_macro.html:6
+msgid "Success!"
+msgstr "成功！"
+
+#: app/templates/component/alert.html:7
+#: app/templates/component/alert_macro.html:8
+msgid "Fail!"
+msgstr "失败！"
+
+#: app/templates/component/alert_macro.html:1
+msgid "Get "
+msgstr "获取"
+
+#: app/templates/component/navigator.html:26
+msgid "Game"
+msgstr "游戏"
+
+#: app/templates/component/navigator.html:27
+msgid "Application"
+msgstr "应用"
+
+#: app/templates/component/navigator.html:28
+msgid "Demonstration"
+msgstr "演示"
+
+#: app/templates/component/navigator_user.html:7
+#: app/templates/space/index.html:14 app/views/space/views.py:13
+msgid "Space"
+msgstr "用户空间"
+
+#: app/templates/component/navigator_user.html:12 app/views/admin/views.py:16
+msgid "Admin Backend"
+msgstr "管理后台"
+
+#: app/templates/files/file_detail.html:10
+msgid "File Information"
+msgstr "文件信息"
+
+#: app/templates/files/file_detail.html:18 app/views/admin/forms.py:43
+msgid "Description"
+msgstr "简介"
+
+#: app/templates/files/file_detail.html:21
+msgid "Link(click to jump to the link)"
+msgstr "链接(点击跳转)"
+
+#: app/templates/files/file_detail.html:24
+msgid "Password(click to copy)"
+msgstr "密码(点击复制)"
+
+#: app/templates/files/file_detail.html:39
+msgid "Password was copied in to your clipboard"
+msgstr "密码复制成功"
+
+#: app/templates/space/articles-display/articles.html:20
+#: app/templates/space/index.html:30 app/views/space/views.py:30
+msgid "All Articles"
+msgstr "所有文章"
+
+#: app/templates/space/index.html:36 app/templates/space/profile-edit.html:22
+#: app/views/space/views.py:47
+msgid "Edit Profile"
+msgstr "编辑个人信息"
+
+#: app/templates/space/profile-edit.html:45 app/views/admin/forms.py:16
+#: app/views/admin/forms.py:35 app/views/space/forms.py:16
+msgid "Submit"
+msgstr "提交"
+
+#: app/templates/space/profile-edit.html:77
+msgid "The length of username is from 4 to 16"
+msgstr "用户名长度必修在4-16之间"
+
+#: app/templates/space/article-manage/add_enabled.html:3
+#: app/views/admin/views.py:142 app/views/space/views.py:107
+msgid "Edit Article"
+msgstr "编辑文章"
+
+#: app/templates/space/article-manage/add_enabled.html:9
+msgid "{}，click <a href=\"{}\">here</a> to jump to the article page"
+msgstr "{}，点击<a href=\"{}\">这里</a>跳转到文章页面"
+
+#: app/templates/space/article-manage/add_enabled.html:10
+msgid "Release "
+msgstr "发布"
+
+#: app/templates/space/article-manage/add_enabled.html:22
+msgid "Information"
+msgstr "基本信息"
+
+#: app/templates/space/article-manage/add_enabled.html:29
+msgid "Enter Title"
+msgstr "输入标题"
+
+#: app/templates/space/article-manage/add_enabled.html:68
+msgid "Content"
+msgstr "输入"
+
+#: app/templates/space/article-manage/add_enabled.html:80
+msgid "Preview"
+msgstr "预览"
+
+#: app/templates/space/article-manage/add_enabled.html:103
+msgid "Advanced Mode (Enable elements like iframe)"
+msgstr "高级模式(可以使用html元素如iframe)"
+
+#: app/templates/space/article-manage/add_enabled.html:121
+#: app/templates/space/article-manage/add_enabled.html:126
+msgid "Release"
+msgstr "发布"
+
+#: app/templates/space/article-manage/add_enabled.html:145
+msgid "Invalid Title"
+msgstr "标题不正当"
+
+#: app/templates/space/article-manage/add_enabled.html:148
+msgid "Title can not be empty"
+msgstr "标题不能为空"
+
+#: app/templates/space/article-manage/add_enabled.html:154
+msgid "Title length should in 1 to 64"
+msgstr "标题长度必须在1到64之间"
+
+#: app/templates/space/article-manage/add_enabled.html:159
+msgid "Invalid summary"
+msgstr "简介不正当"
+
+#: app/templates/space/article-manage/add_enabled.html:162
+msgid "Summary can not be empty"
+msgstr "简介不能为空"
+
+#: app/templates/space/article-manage/add_enabled.html:167
+msgid "Invalid content"
+msgstr "内容不正当"
+
+#: app/templates/space/article-manage/add_enabled.html:170
+msgid "content can not be empty"
+msgstr "内容不能为空"
+
+#: app/templates/space/article-manage/delete.html:18
+msgid "Are your sure you are going to delete this article"
+msgstr "你确认要删除该文章嘛"
+
+#: app/templates/space/article-manage/delete_success.html:18
+msgid "Article has been deleted"
+msgstr "文章已被删除"
+
+#: app/templates/space/article-manage/delete_success.html:26
+msgid "Content Markdwon"
+msgstr "原Markdown"
+
+#: app/templates/space/article-manage/delete_success.html:34
+msgid "User's Space"
+msgstr "返回用户空间"
+
+#: app/templates/space/article-manage/delete_success.html:37
+msgid "Go to index"
+msgstr "返回首页"
+
+#: app/templates/space/article-manage/delete_success.html:40
+msgid "Go to all articles"
+msgstr "返回所有投稿"
+
+#: app/views/admin/forms.py:13 app/views/admin/forms.py:22
+#: app/views/admin/forms.py:47 app/views/auth/forms.py:8
+#: app/views/space/forms.py:31
+msgid "Password"
+msgstr "密码"
+
+#: app/views/admin/forms.py:32 app/views/space/forms.py:13
+msgid "Summary"
+msgstr "简介"
+
+#: app/views/admin/forms.py:33 app/views/space/forms.py:14
+msgid "Enter MarkDown Text"
+msgstr "在这里输入Markdown文本"
+
+#: app/views/admin/forms.py:38 app/views/space/forms.py:19
+msgid "Using Advanced Mode"
+msgstr "使用高级模式"
+
+#: app/views/admin/forms.py:42
+msgid "Alias"
+msgstr "别名"
+
+#: app/views/admin/forms.py:48 app/views/space/forms.py:28
+msgid "Update Info"
+msgstr "更新信息"
+
+#: app/views/auth/forms.py:9 app/views/auth/views.py:12
+msgid "Login"
+msgstr "登陆"
+
+#: app/views/auth/views.py:39
+msgid "Logout"
+msgstr "登出"
+
+#: app/views/files/views.py:9
+msgid "File Detail"
+msgstr "文件详情"
+
+#: app/views/space/forms.py:32
+msgid "ConfirmedPassword"
+msgstr "确认密码"
+

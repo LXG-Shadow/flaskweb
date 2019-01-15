@@ -26,12 +26,12 @@
                     {% if message %}
                         {% import "/component/alert_macro.html" as alert %}
                         <div class="col-md-8 col-md-offset-2" id="alert_feedback">
-                            {{ alert.createAlert(message[0],message[1],prefix="更新") }}
+                            {{ alert.createAlert(message[0],message[1],prefix=_("Updated ")) }}
                         </div>
                     {% endif %}
                 </div>
                 <div class="row clearfix">
-                    <div class="col-md-8 col-md-offset-2 page-header"><h3>用户编辑</h3></div>
+                    <div class="col-md-8 col-md-offset-2 page-header"><h3>{{ _("User Profile Editor") }}</h3></div>
                     <div class="col-md-8 col-md-offset-2 column">
                         <form action="" id="profile_form" method="post" class="form">
                             {{ form.csrf_token }}
@@ -80,49 +80,49 @@
                                     },
                                     fields: {
                                         username: {
-                                            message: '用户名不正当',
+                                            message: '{{ _("Invalid Username") }}',
                                             validators: {
                                                 notEmpty: {
-                                                    message: '用户名不能为空'
+                                                    message: '{{ _("Username Can not be empty") }}'
                                                 },
                                                 stringLength: {
                                                     /*长度提示*/
                                                     min: 4,
                                                     max: 16,
-                                                    message: '用户名长度必须在4到16之间'
+                                                    message: '{{ _("The length of username is in 4 to 16") }}'
                                                 }
                                             }
                                         },
                                         {%if form.id.data == "AutoGenerate" %}
                                             password: {
-                                                message: '密码不正当',
+                                                message: '{{ _("Invalid Password") }}',
                                                 validators: {
                                                     notEmpty: {
-                                                        message: '密码不能为空'
+                                                        message: '{{ _("Password Can not be empty") }}'
                                                     },
                                                     stringLength: {
                                                         /*长度提示*/
                                                         min: 6,
                                                         max: 16,
-                                                        message: '密码长度必须在6到16之间'
+                                                        message: '{{ _("The length of password is in 6 to 16") }}'
                                                     }
                                                 }
                                             },
                                         {% endif %}
                                         email: {
-                                            message: '邮箱不正当',
+                                            message: '{{ _("Invalid Email") }}',
                                             validators: {
                                                 notEmpty: {
-                                                    message: '邮箱不能为空'
+                                                    message: '{{ _("Email Can not be empty") }}'
                                                 },
                                                 emailAddress: {//验证email地址
-                                                    message: '不是正确的email地址'
+                                                    message: '{{ _("Email Can not be empty") }}'
                                                 },
                                                 stringLength: {
                                                     /*长度提示*/
                                                     min: 7,
                                                     max: 31,
-                                                    message: '邮箱长度必须在6到31之间'
+                                                    message: '{{ _("The length of email is from 7 to 31") }}'
                                                 }
                                             }
                                         }

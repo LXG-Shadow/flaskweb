@@ -1,7 +1,9 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,request,current_app
+from flask_babel import lazy_gettext as _l
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_pagedown import PageDown
+from flask_babel import Babel
 from config import config
 import os
 
@@ -11,31 +13,37 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 pagedown = PageDown()
+babel = Babel()
 
-codesmap = {"-1":"传入参数错误",
-            "-2":"请求方式不支持",
-            "-3":"服务器内部错误",
-            "1":"获取成功",
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(current_app.config['LANGUAGES'])
+
+codesmap = {"-1":_l("Invalid Parameters"),
+            "-2":_l("This method is not supported by this URL"),
+            "-3":_l("Server Internal Error"),
+            "1":_l("Get Success"),
             "2":"请输入正确的收藏夹链接哦",
             "3":"收藏夹不存在或没有公开(或用户隐私设置未打开), 请重试",
-            "4":"用户名已存在",
-            "5":"邮箱已存在",
-            "6":"注册成功",
-            "7":"未登录",
-            "8":"用户名或密码错误",
-            "9":"登陆成功",
-            "10":"登出成功",
-            "11":"文章标题重复",
-            "12":"发表文章成功",
-            "13":"没有此文章",
-            "14":"更新文章成功",
-            "15":"删除文章成功",
-            "16":"修改成功",
-            "17":"没有该文件或文件已被删除",
-            "18":"删除文件成功",
-            "19":"添加文件成功",
-            "20":"文件信息修改成功",
-            "21":"相同名称已存在"}
+            "4":_l("This username already exists"),
+            "5":_l("This email already exists"),
+            "6":_l("Register Success"),
+            "7":_l("You have not login in"),
+            "8":_l("Invalid username or password"),
+            "9":_l("Login Success"),
+            "10":_l("Logout Success"),
+            "11":_l("This article title already exists"),
+            "12":_l("Post article success"),
+            "13":_l("This article not exists"),
+            "14":_l("Updated article success"),
+            "15":_l("Delete article success"),
+            "16":_l("Updated success"),
+            "17":_l("This file does not exists or already be deleted"),
+            "18":_l("Delete file success"),
+            "19":_l("Add file success"),
+            "20":_l("Updated file information success"),
+            "21":_l("Same name already exists")}
 
 def newjson(code,data = ""):
     return jsonify({"code":code,"message":codesmap[code],"data":data})
@@ -55,6 +63,8 @@ def app_extensions(app):
     bootstrap.init_app(app)
     db.init_app(app)
     pagedown.init_app(app)
+    babel.init_app(app)
+
 
 
 def app_blueprints(app):

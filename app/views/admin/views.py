@@ -1,4 +1,5 @@
 from flask import redirect, render_template, request, abort,url_for
+from flask_babel import lazy_gettext as _l
 from app import codesmap
 from ...decorator.admin_auth import admin_auth_view
 from ...decorator import get_siteInfo
@@ -12,14 +13,14 @@ from . import admin
 
 @admin.route("/", endpoint="index", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("管理员后台")
+@get_siteInfo(_l("Admin Backend"))
 def admin_index(**kwargs):
     return render_template("/admin/index.html", **kwargs)
 
 
 @admin.route("/user-manage", endpoint="user-manage", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("用户管理")
+@get_siteInfo(_l("User Management"))
 def admin_user_manage(**kwargs):
     page = request.args.get('page', 1, type=int)
     users0 = users.initFromAll(page)
@@ -30,7 +31,7 @@ def admin_user_manage(**kwargs):
 
 @admin.route("/user-manage/edit/<int:id>", endpoint="user-edit", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("用户资料修改")
+@get_siteInfo(_l("User Profile Editor"))
 def admin_user_edit(**kwargs):
     form = UserEditForm()
     user0 = user.initFromId(kwargs["id"])
@@ -71,7 +72,7 @@ def admin_user_edit(**kwargs):
 
 @admin.route("/user-manage/register", endpoint="user-register", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("新增用户")
+@get_siteInfo(_l("New User"))
 def admin_user_register(**kwargs):
     form = UserRegisterForm()
     if request.method == "POST":
@@ -103,7 +104,7 @@ article_manage_para = {"user": lambda value: ("user_id", user.initFromName(value
 
 @admin.route("/article-manage", endpoint="article-manage", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("文章管理")
+@get_siteInfo(_l("Article Management"))
 def admin_article_manage(**kwargs):
     form = DeleteForm()
     page = request.args.get('page', 1, type=int)
@@ -138,7 +139,7 @@ def admin_article_manage(**kwargs):
 
 @admin.route("/article-manage/edit/<int:id>", endpoint="article-edit", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("修改文章")
+@get_siteInfo(_l("Edit Article"))
 def admin_article_edit(**kwargs):
     form = AdvancedPageDownForm()
     article0 = article.initFromId(kwargs["id"])
@@ -178,7 +179,7 @@ def admin_article_edit(**kwargs):
 
 @admin.route("/article-manage/delete/<int:id>", endpoint="article-delete", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("删除文章")
+@get_siteInfo(_l("Delete Article"))
 def space_article_delete(**kwargs):
     form = DeleteForm()
     article0 = article.initFromId(kwargs["id"])
@@ -199,7 +200,7 @@ file_manage_para = {"alias": lambda value: ("alias", value)}
 
 @admin.route("/file-manage", endpoint="file-manage", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("文件管理")
+@get_siteInfo(_l("File Management"))
 def admin_file_manage(**kwargs):
     form = DeleteForm()
     page = request.args.get('page', 1, type=int)
@@ -231,7 +232,7 @@ def admin_file_manage(**kwargs):
 
 @admin.route("/file-manage/upload", endpoint="file-upload", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("添加文件")
+@get_siteInfo(_l("New File"))
 def admin_file_upload(**kwargs):
     form = FileUploadForm()
     if request.method == "POST":
@@ -256,7 +257,7 @@ def admin_file_upload(**kwargs):
 
 @admin.route("/file-manage/edit/<int:id>", endpoint="file-edit", methods=["GET", "POST"])
 @admin_auth_view
-@get_siteInfo("文件信息修改")
+@get_siteInfo(_l("File Information Editor"))
 def admin_file_edit(**kwargs):
     form = FileEditForm()
     file0 = file.initFromId(kwargs["id"])

@@ -2,6 +2,8 @@ from . import main
 from flask import render_template,flash,redirect,url_for,current_app
 from app.model import errorpage,user
 from app.decorator import get_user,get_siteInfo
+from flask_babel import Babel,gettext as _
+import jinja2.ext
 
 @main.route("/",endpoint="index",methods=["GET","POST"])
 @get_siteInfo("LXG_Shadow")

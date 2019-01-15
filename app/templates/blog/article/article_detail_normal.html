@@ -4,14 +4,14 @@
         <li class="list-group-item">
             <div class="clearfix row">
                 <div class="col-md-6">
-                    <span class="label label-default text-right">日期 {{ article.create_time.strftime("%Y-%m-%d") }}</span>
+                    <span class="label label-default text-right">{{ _("Date") }} {{ article.create_time.strftime("%Y-%m-%d") }}</span>
                     <span class="label label-warning text-right">{{ article.source.name }}</span>
                     <span class="label label-info text-right">{{ article.type.name }}</span>
                 </div>
                 <div class="col-md-6 text-right">
-                    <span class="label label-primary text-right">浏览 {{ article.num_of_view }}</span>
+                    <span class="label label-primary text-right">{{ _("Visits") }} {{ article.num_of_view }}</span>
                     <a href="{{ url_for("space.index",id=article.user.id) }}">
-                        <span class="label label-success">作者: {{ article.user.name }}</span>
+                        <span class="label label-success">{{ _("Author") }} {{ article.user.name }}</span>
                     </a>
                 </div>
             </div>
@@ -25,13 +25,13 @@
             {{ article.content | safe }}
         </div>
         <div class="list-group-item" style="font-size: small">
-            <span class="glyphicon glyphicon-time"> 最后更新时间：{{ article.update_time }}</span>
+            <span class="glyphicon glyphicon-time"> {{ _("Latest Updated Time") }}：{{ article.update_time }}</span>
         </div>
     </div>
     {% if article.user.id == user.id %}
         <div class="panel-footer panel-info text-center">
             <span class="glyphicon glyphicon-edit"></span>
-            <a href="{{ url_for('space.article-edit',id=article.id) }}">Edit</a>
+            <a href="{{ url_for('space.article-edit',id=article.id) }}">{{ _("Edit") }}</a>
         </div>
     {% endif %}
 </div>

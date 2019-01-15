@@ -1,9 +1,5 @@
 {% extends "common/base.html" %}
 
-{% block title %}
-    文件管理
-{% endblock %}
-
 {% block navbar %}
     {% include 'component/navigator.html' %}
 {% endblock %}
@@ -24,23 +20,23 @@
                     {% if message %}
                         {% import "/component/alert_macro.html" as alert %}
                         <div class="col-md-8 col-md-offset-2" id="alert_feedback">
-                            {{ alert.createAlert(message[0],message[1],prefix="更新") }}
+                            {{ alert.createAlert(message[0],message[1],prefix=_("Updated ")) }}
                         </div>
                     {% endif %}
                 </div>
                 <div class="row clearfix">
-                    <div class="col-md-8 col-md-offset-2 page-header"><h3>文件管理</h3></div>
+                    <div class="col-md-8 col-md-offset-2 page-header"><h3>{{ _("File Management") }}</h3></div>
                     <div class="col-md-8 col-md-offset-2">
                         <div class="row clearfix">
                             <form class="form" action="" method="get">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input class="form-control" name="alias" placeholder="别名"/>
+                                        <input class="form-control" name="alias" placeholder="{{ _("alias") }}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <button class="btn btn-info">查询</button>
+                                        <button class="btn btn-info">{{ _("Search") }}</button>
                                     </div>
                                 </div>
                             </form>
@@ -51,13 +47,13 @@
                             <thead>
                             <tr class="info">
                                 <th>ID</th>
-                                <th>别名</th>
-                                <th>是否外链</th>
-                                <th>权限</th>
-                                <th>原链接</th>
-                                <th>密码</th>
-                                <th>编辑</th>
-                                <th>删除</th>
+                                <th>{{ _("alias") }}</th>
+                                <th>{{ _("External Link") }}</th>
+                                <th>{{ _("Access Permission") }}</th>
+                                <th>{{ _("Original Link") }}</th>
+                                <th>{{ _("Original Password") }}</th>
+                                <th>{{ _("Edit") }}</th>
+                                <th>{{ _("Delete") }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -69,10 +65,10 @@
                                         <a href="{{ url_for("files.detail",id=file.id) }}">{{ file.alias }}</a>
                                     </th>
                                     <th>
-                                        {% if file.external %}是{% else %}否{% endif %}
+                                        {% if file.external %}{{ _("Yes") }}{% else %}{{ _("No") }}{% endif %}
                                     </th>
                                     <th>{{ file.permission }}</th>
-                                    <th><a href="{{ file.link }}"><span class="glyphicon glyphicon-link">点击</span></a></th>
+                                    <th><a href="{{ file.link }}"><span class="glyphicon glyphicon-link">{{ _("Link") }}</span></a></th>
                                     <th>{{ file.password }}</th>
                                     <th>
                                         <a class="btn btn-sm btn-success"
@@ -95,7 +91,7 @@
                     </div>
                     <div class="col-md-1 col-md-offset-2">
                         <a class="btn btn-sm btn-default" href="{{ url_for("admin.file-upload") }}">
-                            <span class="glyphicon glyphicon-plus"></span> 添加文件
+                            <span class="glyphicon glyphicon-plus"></span> {{ _("New File") }}
                         </a>
                     </div>
                 </div>

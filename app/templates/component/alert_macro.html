@@ -1,11 +1,11 @@
-{% macro createAlert(type,message, prefix='获取') %}
+{% macro createAlert(type,message, prefix=_("Get ")) %}
     <div class="alert alert-{{ type }} alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span></button>
         {% if type == "success" %}
-            <strong>{{ prefix }}成功!</strong>
+            <strong>{{ prefix }}{{ _("Success!") }}</strong>
         {% else %}
-            <strong>{{ prefix }}失败!</strong>
+            <strong>{{ prefix }}{{ _("Fail!") }}</strong>
         {% endif %}
         {{ message | safe}}
     </div>
