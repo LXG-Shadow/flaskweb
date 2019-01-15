@@ -73,7 +73,10 @@ class user(object):
     @classmethod
     def initFromPayload(cls, payload):
         try:
+            #python3.6
             payload = json.loads(b64decode(payload))
+            #python3.5
+            #payload = json.loads(b64decode(payload).decode())
             id = payload["id"]
             keyB = payload["keyB"]
             exp = payload["exp"]
