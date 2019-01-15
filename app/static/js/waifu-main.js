@@ -61,7 +61,7 @@ function waifu() {
         if (this.setting.enableToolbar) this.loadWaifuToolbar();
         if (this.setting.enableHitokoto) window.setInterval(function (waifu) {
             waifu.showHitokoto();
-        },this.hitokoto.ShowingPeriod,this);
+        }, this.hitokoto.ShowingPeriod, this);
         this.printConsoleLog("waifu初始化成功");
     };
 
@@ -90,7 +90,7 @@ function waifu() {
 
     this.loadWaifu = function () {
         var waifu = this;
-        
+
         $("#live2d").prop("width", this.waifuSize[0]);
         $("#live2d").prop("height", this.waifuSize[1]);
 
@@ -144,13 +144,6 @@ function waifu() {
             }
         });
 
-        $(".waifu-tool .glyphicon-info-sign").click(function () {
-           waifu.showMessage("我是"+waifu.model.Name+" 是本网站的看板娘哦！",null);
-        });
-        $(".waifu-tool .glyphicon-home").click(function () {
-            window.location.href = "/";
-        });
-
         this.printConsoleLog("加载提示完成");
     };
 
@@ -159,23 +152,23 @@ function waifu() {
         $(".waifu-tool .glyphicon-picture").click(function () {
             waifu.takePhoto();
         });
-        $(".waifu-tool .glyphicon-home").click(function () {
-            //window.Live2D.captureFrame = true;
-        });
         $(".waifu-tool .glyphicon-refresh").click(function () {
             waifu.changeModel();
         });
         $(".waifu-tool .glyphicon-eye-open").click(function () {
             waifu.changeTexture();
         });
-        $(".waifu-tool .glyphicon-info-sign").click(function () {
-            //window.Live2D.captureFrame = true;
-        });
         $(".waifu-tool .glyphicon-remove").click(function () {
-            //123
+            $("#waifu").empty();
         });
         $(".waifu-tool .glyphicon-book").click(function () {
             waifu.showHitokoto();
+        });
+        $(".waifu-tool .glyphicon-info-sign").click(function () {
+            waifu.showMessage("我是" + waifu.model.Name + " 是本网站的看板娘哦！", null);
+        });
+        $(".waifu-tool .glyphicon-home").click(function () {
+            window.location.href = "/";
         });
     };
 
@@ -228,12 +221,12 @@ function waifu() {
         var cat = waifu.hitokoto.Cat[Math.floor(Math.random() * waifu.hitokoto.Cat.length + 1) - 1];
         $.ajax({
             cache: true,
-            url: waifu.hitokoto.Api+"?c="+cat+"&encode="+waifu.hitokoto.Encoding+"&charset="+waifu.hitokoto.Charset,
+            url: waifu.hitokoto.Api + "?c=" + cat + "&encode=" + waifu.hitokoto.Encoding + "&charset=" + waifu.hitokoto.Charset,
             dataType: "json",
             success: function (result) {
-                if (typeof(result.status) == "undefined"){
+                if (typeof (result.status) == "undefined") {
                     var temp = "     --";
-                    waifu.showMessage(result["hitokoto"]+temp+result["from"],null);
+                    waifu.showMessage(result["hitokoto"] + temp + result["from"], null);
                 }
             }
         });
