@@ -10,13 +10,33 @@
         <span class="glyphicon glyphicon-info-sign"></span>
         <span class="glyphicon glyphicon-remove"></span>
     </div>
+</div>
+<div class="open-waifu" id="open-waifu">
+    <button class="btn btn-success btn-sm" id="enableWaifuBtn">开启Waifu</button>
+</div>
+<div>
     <link rel="stylesheet" type="text/css" href="{{ url_for("static",filename="css/live2d.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for("static",filename="css/jquery-ui.min.css") }}">
     <script type="text/javascript" src="{{ url_for("static",filename="js/jquery-ui.min.js") }}"></script>
     <script src="{{ url_for("static",filename="js/live2d.js") }}"></script>
     <script type="text/javascript" src="{{ url_for("static",filename="js/waifu-main.js") }}"></script>
     <script type="text/javascript">
-        var myWaifu = new waifu();
-        myWaifu.initWaifuFromConfig("{{ url_for("api.live2d-config-get")}}");
+        var enableWaifu = localStorage.getItem("enableWaifu");
+        if (enableWaifu === null){
+            localStorage.setItem("enableWaifu","1");
+            enableWaifu = "1";
+        }
+        if (enableWaifu === "1"){
+            var myWaifu = new waifu();
+            $("#open-waifu").hide();
+            myWaifu.initWaifuFromConfig("{{ url_for("api.live2d-config-get")}}");
+        }
+        else {
+            $("#waifu").empty();
+            $("#enableWaifuBtn").click(function () {
+                localStorage.setItem("enableWaifu","1");
+                window.location.reload();
+            })
+        }
     </script>
 </div>

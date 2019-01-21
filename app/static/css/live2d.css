@@ -8,15 +8,26 @@
     -webkit-transform: translateY(3px);
     transform: translateY(3px);
 }
+
+.open-waifu {
+    position: fixed;
+    height: 10px;
+    width : 15px;
+    bottom: 20px;
+    left: 0;
+}
+
 .waifu:hover {
     -webkit-transform: translateY(0);
     transform: translateY(0);
 }
+
 @media (max-width: 100px) {
     .waifu {
         display: none;
     }
 }
+
 .waifu-tips {
     opacity: 0;
     width: 250px;
@@ -35,6 +46,7 @@
     animation-name: shake;
     animation-timing-function: ease-in-out;
 }
+
 .waifu-tool {
     display: none;
     color: #aaa;
@@ -43,9 +55,11 @@
     font-size: 14px;
     position: absolute;
 }
+
 .waifu:hover .waifu-tool {
     display: block;
 }
+
 .waifu-tool span {
     display: block;
     cursor: pointer;
@@ -61,12 +75,14 @@
     animation-name: shake;
     animation-timing-function: ease-in-out;
 }
+
 .waifu-tool span:hover {
     z-index: 1;
     transform: scale(1.5);
     animation: none;
 }
-.waifu #live2d{
+
+.waifu #live2d {
     position: relative;
 }
 

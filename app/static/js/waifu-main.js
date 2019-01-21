@@ -159,7 +159,9 @@ function waifu() {
             waifu.changeTexture();
         });
         $(".waifu-tool .glyphicon-remove").click(function () {
+            localStorage.setItem("enableWaifu","0");
             $("#waifu").empty();
+            $("#open-waifu").show();
         });
         $(".waifu-tool .glyphicon-book").click(function () {
             waifu.showHitokoto();
