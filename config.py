@@ -10,6 +10,8 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://lxgshado_admin:adminlyc6969@localhost:3306/lxgshado_website'
     BABEL_DEFAULT_LOCALE = 'en'
     LANGUAGES = ['en',"zh_CN","zh"]
+    XLM_SERVERID = "14093"
+    XLM_SSO_KEY = "MnE5DEp0ujF4FXatWDZDUNAKvkWnsiXT"
     ITEMS_PER_PAGE = 10
     @staticmethod
     def init_app(app):

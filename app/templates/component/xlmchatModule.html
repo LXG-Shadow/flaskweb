@@ -1,0 +1,12 @@
+{% set uid,name,time0,hash0 = user.getxlmchatInfo() %}
+
+<script>
+var xlm_wid='14093';
+var xlm_url='https://www.xianliao.me/';
+var xlm_uid="{{ uid }}";
+var xlm_name="{{ name }}";
+var xlm_avatar="";
+var xlm_time='{{ time0 }}';
+var xlm_hash='{{ hash0 }}';
+</script>
+<script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>

@@ -4,6 +4,8 @@ from werkzeug.security import check_password_hash
 from base64 import urlsafe_b64encode
 from base64 import b64encode,b64decode
 import hmac,hashlib,json,time
+import _hashlib
+
 
 class userGroup(object):
     def __init__(self, id, name, permission):
@@ -73,10 +75,7 @@ class user(object):
     @classmethod
     def initFromPayload(cls, payload):
         try:
-            #python3.6
             payload = json.loads(b64decode(payload))
-            #python3.5
-            #payload = json.loads(b64decode(payload).decode())
             id = payload["id"]
             keyB = payload["keyB"]
             exp = payload["exp"]
@@ -159,6 +158,21 @@ class user(object):
         hmacCipher.update(hp)
         signature = b64encode(hmacCipher.digest()).decode()
         return ".".join([header, payload, signature])
+
+
+    def getxlmchatInfo(self):
+        if self.id == None:
+            uid = 0
+            name = ""
+        else:
+            uid = self.id
+            name = self.name
+        time0 = int(time.time())
+        sha = hashlib.sha512()  # type:_hashlib.HASH
+        temp = "%s_%s_%s_%s" % (current_app.config["XLM_SERVERID"], uid, time0, current_app.config["XLM_SSO_KEY"])
+        sha.update(temp.encode())
+        hash0 = sha.hexdigest()
+        return (uid,name,time0,hash0)
 
 
 class users(object):
