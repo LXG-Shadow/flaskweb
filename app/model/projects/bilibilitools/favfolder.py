@@ -98,7 +98,7 @@ class favfolder(object):
         return len(self.__data)
 
 
-    def getData(self,ps=30):
+    def getData(self,ps=20):
         parsedlist = [[] for i in range((self.getNumVideo() - 1) // ps + 1)]
         for i in range(self.getNumVideo()):
             parsedlist[i // ps].append(self.__data[i])
