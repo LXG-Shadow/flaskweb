@@ -62,10 +62,10 @@ def unicdefmt(s):
 
 
 class favfolder(object):
-    def __init__(self,mid,fid):
-        self.__mid = mid
-        self.__fid = fid
-        self.__apiurl = "https://api.bilibili.com/x/space/fav/arc?vmid=%s&ps=30&fid=%s&pn=%s" % (mid, fid, "%s")
+    def __init__(self,media_id,ps = 20):
+        self.__media_id = media_id
+        self.__ps = ps
+        self.__apiurl = "https://api.bilibili.com/medialist/gateway/base/spaceDetail?media_id=%s&ps=%s&pn=%s" % (self.__media_id, self.__ps, "%s")
         if self.isValid():
             self.__data = self.reqData()
         else:
@@ -73,20 +73,17 @@ class favfolder(object):
 
     @classmethod
     def initFromLink(cls,favlink):
-        if favlink[-1] == "/":
-            favlink = favlink[:-1:]
-        # 获取mid
-        mid = favlink[favlink.find("com/", 0) + 4:favlink.find("/", favlink.find("com/", 0)+4):]
-        # 获取fid
-        fid = favlink[favlink.find("fid", 0) + 4::]
-        if not mid.isdigit():
-            mid = ""
-        if not fid.isdigit():
-            fid = ""
-        return cls(mid,fid)
+        parameters = favlink[favlink.find("?", 0) + 1::].split("&")
+        media_id = ""
+        for para in parameters:
+            if "fid" in para:
+                media_id = para[4::]
+        if not media_id.isdigit():
+            media_id = ""
+        return cls(media_id)
 
     def isValid(self):
-        if len(self.__mid) == 0 or len(self.__fid) == 0:
+        if len(self.__media_id) == 0:
             return False
         else:
             return True
@@ -128,30 +125,28 @@ class favfolder(object):
         pn = 1
         while True:
             wholeurl = self.__apiurl % pn
+
             jsondata = tryget(wholeurl)
-            print(wholeurl)
             code = jsondata["code"]
-            if code == 0:
-                pass
-            elif code == 11004 or code == 11010 or code == 53013:
+            if code != 0:
+                return []
+            if not "data" in jsondata.keys():
                 return []
             else:
-                #print(code)
-                while code != 0:
+                while not "data" in jsondata.keys():
                     jsondata = tryget(wholeurl)
-                    code = jsondata["code"]
 
-            archives = jsondata["data"]["archives"]
-            if len(archives) == 0:
+            if jsondata["data"]["info"]["media_count"] == 0:
                 break
+            medias = jsondata["data"]["medias"]
 
-            for item in archives:
-                data.append({"aid": str(item["aid"]),
+            for item in medias:
+                data.append({"aid": str(item["id"]),
                              "title": unicdefmt(str(item["title"])),
-                             "pic": str(item["pic"]),
-                             "upname": str(item["owner"]["name"]),
-                             "mid": str(item["owner"]["mid"]),
-                             "state": str(item["state"])})
+                             "pic": str(item["cover"]),
+                             "state": str(item["attr"]),
+                             "mid": str(item["upper"]["mid"]),
+                             "upname": str(item["upper"]["name"])})
 
             pn +=1
         return data
