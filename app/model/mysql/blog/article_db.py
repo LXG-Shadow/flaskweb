@@ -234,7 +234,7 @@ class article_db(db.Model):
         allowed_tags = [
             'a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
             'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-            'h1', 'h2', 'h3', 'p', 'img', 'br', "del"
+            'h1', 'h2', 'h3',"h4","h5", 'p', 'img', 'br', "del","hr"
         ]
         # 需要提取的标签属性，否则会被忽略掉
         attrs = {
