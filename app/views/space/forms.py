@@ -8,9 +8,10 @@ from ...model.mysql.blog import articleType_db,articleSource_db
 
 class PageDownForm(FlaskForm):
     title = StringField(_l('Title'), validators=[DataRequired(),Length(1, 64)])
-    source = QuerySelectField(_l('Source'),query_factory=articleSource_db.getAllarticleSource,get_label="name")
-    type = QuerySelectField(_l('Type'),query_factory=articleType_db.getAllarticleType,get_label="name")
+    source = QuerySelectField(_l('Source'),query_factory=articleSource_db.getAll,get_label="name")
+    type = QuerySelectField(_l('Type'),query_factory=articleType_db.getAll,get_label="name")
     summary = TextAreaField(_l('Summary'), validators=[DataRequired()])
+    tags = StringField(_l('Tags'))
     content = PageDownField(_l("Enter MarkDown Text"),validators=[DataRequired()])
     no_clean = None
     submit = SubmitField(_l('Submit'))

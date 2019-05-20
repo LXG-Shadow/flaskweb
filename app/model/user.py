@@ -51,22 +51,22 @@ class user(object):
     def initFromId(cls, id):
         data = user_db.get_by_id(id)
         if data is None:
-            return cls(None, None, None, None, userGroup.initGuest())
-        return cls(data.id, data.name, data.password, data.email, userGroup.initFromModel(data.group))
+            return cls.initNone()
+        return cls(data.id, data.name, data.password, data.email, userGroup.initFromId(data.group_id))
 
     @classmethod
     def initFromName(cls, name):
         data = user_db.get_by_name(name)
         if data is None:
-            return cls(None, None, None, None, userGroup.initGuest())
-        return cls(data.id, data.name, data.password, data.email, userGroup.initFromModel(data.group))
+            return cls.initNone()
+        return cls(data.id, data.name, data.password, data.email, userGroup.initFromId(data.group_id))
 
     @classmethod
     def initFromEmail(cls, email):
         data = user_db.get_by_email(email)
         if data is None:
-            return cls(None, None, None, None, userGroup.initGuest())
-        return cls(data.id, data.name, data.password, data.email, userGroup.initFromModel(data.group))
+            return cls.initNone()
+        return cls(data.id, data.name, data.password, data.email, userGroup.initFromId(data.group_id))
 
     @classmethod
     def initNone(cls):
@@ -76,9 +76,9 @@ class user(object):
     def initFromPayload(cls, payload):
         try:
             #python3.6
-            payload = json.loads(b64decode(payload))
+            #payload = json.loads(b64decode(payload))
             #python3.5
-            #payload = json.loads(b64decode(payload).decode())
+            payload = json.loads(b64decode(payload).decode())
             id = payload["id"]
             keyB = payload["keyB"]
             exp = payload["exp"]
@@ -91,6 +91,9 @@ class user(object):
         except:
             return cls.initNone()
 
+    @classmethod
+    def initFromObject(cls,obj):
+        return cls(obj.id, obj.name, obj.password, obj.email, userGroup.initFromId(obj.group_id))
     @staticmethod
     def checkAuthString(auth):
         auth = auth.split(".")
@@ -181,6 +184,7 @@ class user(object):
 class users(object):
     def __init__(self, pagination):
         self.pagination = pagination
+        self.pagination.items = [user.initFromObject(obj) for obj in pagination.items]
 
     @classmethod
     def initFromAll(cls, page, desc=False):

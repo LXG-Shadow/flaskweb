@@ -1,0 +1,17 @@
+<ul class="list-group text-justify">
+    <li class="list-group-item">
+        <div class="clearfix row">
+            <div class="col-md-6 text-left">
+                <span class="label label-default">{{ _("Date") }} {{ article.create_time.strftime("%Y-%m-%d") }}</span>
+                <span class="label label-warning">{{ article.source.name }}</span>
+                <span class="label label-info">{{ article.type.name }}</span>
+            </div>
+            <div class="col-md-6 text-right">
+                <span class="label label-primary">{{ _("Visits") }} {{ article.num_of_view }}</span>
+                <a href="{{ url_for("space.index",id=article.user.id) }}">
+                    <span class="label label-success">{{ _("Author") }} {{ article.user.name }}</span>
+                </a>
+            </div>
+        </div>
+    </li>
+</ul>

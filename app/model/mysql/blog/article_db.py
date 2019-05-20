@@ -31,7 +31,7 @@ class articleSource_db(db.Model):
         return rawdata
 
     @classmethod
-    def getAllarticleSource(cls):
+    def getAll(cls):
         return cls.query.all()
 
     @classmethod
@@ -47,7 +47,7 @@ class articleSource_db(db.Model):
         db.session.commit()
 
     @classmethod
-    def insert_sources(cls, s):
+    def insert(cls, s):
         source = cls.query.filter_by(name=s).first()
         if source is None:
             source = cls(name=s)
@@ -114,11 +114,11 @@ class articleType_db(db.Model):
         db.session.commit()
 
     @classmethod
-    def getAllarticleType(cls):
+    def getAll(cls):
         return cls.query.all()
 
     @classmethod
-    def insert_articleType(cls, t):
+    def insert(cls, t):
         type = cls.query.filter_by(name=t).first()
         if type is None:
             type = cls(name=t)
@@ -127,25 +127,65 @@ class articleType_db(db.Model):
             return True
         return False
 
-    @property
-    def is_protected(self):
-        if self.setting:
-            return self.setting.protected
-        else:
-            return False
 
-    @property
-    def is_hide(self):
-        if self.setting:
-            return self.setting.hide
-        else:
-            return False
+class articleTags_db(db.Model):
+    __tablename__ = "articleTags"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(16), unique=True,index=True)
+
+    @classmethod
+    def select_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def select_by_name(cls, name):
+        return cls.query.filter_by(name=name).first()
+
+    @classmethod
+    def insert(cls, name):
+        tag = cls.select_by_name(name)
+        if tag == None:
+            tag = cls(name=name)
+            db.session.add(tag)
+            db.session.commit()
+        return tag
+
+
+class articletagLink_db(db.Model):
+    __tablename__ = "articletagLink"
+    id = db.Column(db.Integer, primary_key=True)
+    article_id = db.Column(db.Integer, db.ForeignKey('articles.id'), index=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('articleTags.id'), index=True)
+
+    @classmethod
+    def select_by_articleId(cls, aid):
+        return cls.query.filter_by(article_id=aid).all()
+
+    @classmethod
+    def select_by_tagId(cls,tid):
+        return cls.query.filter_by(tag_id = tid).all()
+
+    @classmethod
+    def insert(cls, aid, tid):
+        l = cls(article_id=aid, tag_id=tid)
+        db.session.add(l)
+        db.session.commit()
+        return l
+
+    @classmethod
+    def delete(cls, aid, tid):
+        l = cls.query.filter_by(article_id=aid, tag_id=tid).first()
+        if l == None:
+            return
+        db.session.delete(l)
+        db.session.commit()
+        return
 
 
 class article_db(db.Model):
     __tablename__ = 'articles'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(64), unique=True)
+    title = db.Column(db.String(64), unique=True, index=True)
     content_raw = db.Column(db.Text)
     content = db.Column(db.Text)
     summary = db.Column(db.Text)
@@ -156,24 +196,16 @@ class article_db(db.Model):
     source_id = db.Column(db.Integer, db.ForeignKey('articleSources.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('userstable.id'))
 
-    # article_comments = db.relationship('comment', backref='article', lazy='dynamic')
-
     @classmethod
     def get_by_id(cls, id):
-        rawdata = cls.query.filter_by(id=id).first()
-        if rawdata is None:
-            return None
-        return rawdata
+        return cls.query.filter_by(id=id).first()
 
     @classmethod
     def get_by_title(cls, title):
-        rawdata = cls.query.filter_by(title=title).first()
-        if rawdata is None:
-            return None
-        return rawdata
+        return cls.query.filter_by(title=title).first()
 
     @classmethod
-    def insert_article(cls, title, content_raw, summary, type_id, source_id, user_id, advanced):
+    def insert(cls, title, content_raw, summary, type_id, source_id, user_id, advanced):
         article = cls(title=title, content_raw=content_raw, summary=summary,
                       type_id=type_id, source_id=source_id, user_id=user_id)
         db.session.add(article)
@@ -183,7 +215,7 @@ class article_db(db.Model):
         return article
 
     @classmethod
-    def delete_article(cls, id):
+    def delete(cls, id):
         article = cls.get_by_id(id)
         if article is None:
             return None
@@ -192,7 +224,7 @@ class article_db(db.Model):
         return True
 
     @classmethod
-    def edit_article(cls, id, title, content_raw, summary, type_id, source_id, advanced):
+    def edit(cls, id, title, content_raw, summary, type_id, source_id, advanced):
         article = cls.get_by_id(id=id)
         if article is None:
             return None
@@ -216,25 +248,13 @@ class article_db(db.Model):
         db.session.commit()
         return article
 
-    def is_protected(self):
-        if self.type:
-            return self.type.setting.protected
-        else:
-            return False
-
-    def is_hide(self):
-        if self.type:
-            return self.type.setting.hide
-        else:
-            return False
-
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
         # 需要转换的标签
         allowed_tags = [
             'a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
             'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-            'h1', 'h2', 'h3',"h4","h5", 'p', 'img', 'br', "del","hr"
+            'h1', 'h2', 'h3', "h4", "h5", 'p', 'img', 'br', "del", "hr"
         ]
         # 需要提取的标签属性，否则会被忽略掉
         attrs = {

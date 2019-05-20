@@ -96,10 +96,12 @@ def admin_user_register(**kwargs):
     return render_template("/admin/user/user_manage_edit.html", form=form, **kwargs)
 
 
+
+# 如果是返回的是None，取id会导致错误，那么该选项就不会放进搜索条件里，try...except...
 article_manage_para = {"user": lambda value: ("user_id", user.initFromName(value).id),
                        "title": lambda value: ("title", value),
-                       "source": lambda value: ("source", articleSource_db.get_by_name(value)),
-                       "type": lambda value: ("type", articleType_db.get_by_name(value))}
+                       "source": lambda value: ("source_id", articleSource_db.get_by_name(value).id),
+                       "type": lambda value: ("type_id", articleType_db.get_by_name(value).id)}
 
 
 @admin.route("/article-manage", endpoint="article-manage", methods=["GET", "POST"])
@@ -123,17 +125,17 @@ def admin_article_manage(**kwargs):
             status = article.delete(id)
             articles0 = articles.initFromPara(page, **para1)
             if status[0]:
-                return render_template('/admin/article-manage/article_manage.html', pagination=articles0.pagination,
+                return render_template('/admin/article-manage/article_manage.html', pagination=articles0,
                                        form=form, para=para,
                                        message=("success", codesmap[str(status[1])]),
                                        **kwargs)
             else:
-                return render_template('/admin/article-manage/article_manage.html', pagination=articles0.pagination,
+                return render_template('/admin/article-manage/article_manage.html', pagination=articles0,
                                        form=form, para=para,
                                        message=("warning", codesmap[str(status[1])]),
                                        **kwargs)
     articles0 = articles.initFromPara(page, **para1)
-    return render_template("/admin/article-manage/article_manage.html", pagination=articles0.pagination, form=form,
+    return render_template("/admin/article-manage/article_manage.html", pagination=articles0, form=form,
                            para=para, **kwargs)
 
 
@@ -156,7 +158,9 @@ def admin_article_edit(**kwargs):
                 no_clean = form.no_clean.data
             else:
                 no_clean = False
-            status = article.edit(kwargs["id"], title, content_raw, summary, type.id, source.id, advanced=no_clean)
+            tags = list(set([t for t in form.tags.data.split(" ") if t != ""]))
+            status = article.edit(kwargs["id"], title, content_raw, summary, type.id, source.id, tags,
+                                  advanced=no_clean)
             if status[0]:
                 return render_template('/space/article-manage/add.html', form=form, edit=True,
                                        message=("success", codesmap[str(status[1])]),
@@ -173,9 +177,9 @@ def admin_article_edit(**kwargs):
     form.source.data = article0.source
     form.summary.data = article0.summary
     form.content.data = article0.content_raw
+    form.tags.data = " ".join([t.name for t in article0.tags])
     return render_template('/space/article-manage/add.html', form=form, article_id=article0.id,
                            edit=True, **kwargs)
-
 
 @admin.route("/article-manage/delete/<int:id>", endpoint="article-delete", methods=["GET", "POST"])
 @admin_auth_view

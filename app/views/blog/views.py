@@ -13,7 +13,21 @@ def blog_index(**kwargs):
     articles0 = articles.initFromAll(page)
     if articles0.isNone():
         abort(404)
-    return render_template('/blog/index.html', pagination=articles0.pagination,
+    return render_template('/blog/index.html', pagination=articles0,
+                           **kwargs)
+
+
+@blog.route("/tag/<string:tag>",endpoint="tag",methods=["GET","POST"])
+@get_user
+@get_blogInfo("Tag")
+def blog_index(**kwargs):
+    tag = kwargs.pop("tag")
+    kwargs["siteInfo"].parameter["tag"] = tag
+    page = request.args.get('page', 1, type=int)
+    articles0 = articles.initFromTag(tag,page)
+    if articles0.isNone():
+        abort(404)
+    return render_template('/blog/index.html', pagination=articles0,
                            **kwargs)
 
 @blog.route("/article-detail/<int:id>",endpoint="article-detail",methods=["GET","POST"])

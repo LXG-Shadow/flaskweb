@@ -14,7 +14,6 @@ class userGroup_db(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(16), nullable=False)
     permission = db.Column(db.Integer, nullable=False)
-    users = db.relationship('user_db', backref='group', lazy='dynamic')
 
     @classmethod
     def getAlluserGroup(cls):
@@ -64,7 +63,6 @@ class user_db(db.Model):
     password = db.Column(db.String(256), nullable=False)
     email = db.Column(db.String(31), nullable=False)
     register_time = db.Column(db.DateTime, index=True, default=bjutc)
-    articles = db.relationship('article_db', backref='user', lazy='dynamic')
     group_id = db.Column(db.Integer, db.ForeignKey('userGroups.id'))
 
     @classmethod

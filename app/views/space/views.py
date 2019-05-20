@@ -55,12 +55,13 @@ def space_edit(**kwargs):
             if status[0]:
                 return redirect(url_for("space.index", id=kwargs["user"].id))
             else:
-                return render_template('/space/profile-edit.html', form=form, message=("warning",codesmap[str(status[1])]),
+                return render_template('/space/profile-edit.html', form=form,
+                                       message=("warning", codesmap[str(status[1])]),
                                        **kwargs)
         else:
             form.username.data = kwargs["user"].name
             form.email.data = kwargs["user"].email
-            return render_template('/space/profile-edit.html', form=form, message=("danger",codesmap[-1]),
+            return render_template('/space/profile-edit.html', form=form, message=("danger", codesmap[-1]),
                                    **kwargs)
     form.username.data = kwargs["user"].name
     form.email.data = kwargs["user"].email
@@ -88,7 +89,9 @@ def space_article_add(**kwargs):
                 no_clean = form.no_clean.data
             else:
                 no_clean = False
-            status = article.add(title, content_raw, summary, type.id, source.id, kwargs["user"].id, advanced=no_clean)
+            tags = list(set([t for t in form.tags.data.split(" ") if t != ""]))
+            status = article.add(title, content_raw, summary, type.id, source.id, kwargs["user"].id, tags,
+                                 advanced=no_clean)
             if status[0]:
                 return render_template('/space/article-manage/add.html', form=form, edit=True,
                                        message=("success", codesmap[str(status[1])]),
@@ -126,7 +129,9 @@ def space_aricle_edit(**kwargs):
                 no_clean = form.no_clean.data
             else:
                 no_clean = False
-            status = article.edit(kwargs["id"], title, content_raw, summary, type.id, source.id, advanced=no_clean)
+            tags = list(set([t for t in form.tags.data.split(" ") if t != ""]))
+            status = article.edit(kwargs["id"], title, content_raw, summary, type.id, source.id, tags,
+                                  advanced=no_clean)
             if status[0]:
                 return render_template('/space/article-manage/add.html', form=form, edit=True,
                                        message=("success", codesmap[str(status[1])]),
@@ -143,6 +148,7 @@ def space_aricle_edit(**kwargs):
     form.source.data = article0.source
     form.summary.data = article0.summary
     form.content.data = article0.content_raw
+    form.tags.data = " ".join([t.name for t in article0.tags])
     return render_template('/space/article-manage/add.html', form=form, article_id=article0.id,
                            edit=True, **kwargs)
 

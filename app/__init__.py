@@ -54,7 +54,8 @@ def tb(app):
     #from app.model.mysql import user_db
     #from app.model.mysql.blog import article_db
     #from app.model.mysql.file_db import file_db
-    from app.model.mysql.live2d_db import live2dTip_db,live2dModel_db
+    #from app.model.mysql.live2d_db import live2dTip_db,live2dModel_db
+    from app.model.mysql.blog import articleTags_db,articletagLink_db
     #db.drop_all(app=app)
     db.create_all(app=app)
 
