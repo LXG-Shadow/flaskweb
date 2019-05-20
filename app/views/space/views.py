@@ -38,7 +38,7 @@ def space_articles(**kwargs):
     page = request.args.get('page', 1, type=int)
     articles0 = articles.initFromUser(user0.id, page)
     kwargs["siteInfo"].parameter["id"] = user0.id
-    return render_template("/space/articles-display/articles.html", page_user=user0, pagination=articles0.pagination,
+    return render_template("/space/articles-display/articles.html", page_user=user0, pagination=articles0,
                            **kwargs)
 
 
