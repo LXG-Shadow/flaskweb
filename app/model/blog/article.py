@@ -134,11 +134,9 @@ class articles(object):
         self.page = page
         self.per_page = per_page
         self.total = total
+        self.pages = int((total-1) / per_page) + 1
         self.items = [article.initFromObject(obj) for obj in items]
 
-    @property
-    def pages(self):
-        return self.total
 
     @classmethod
     def initFromAll(cls, page, desc=True):
@@ -173,7 +171,7 @@ class articles(object):
         # 按博客发表时间排序
         tags.sort(key=lambda t:t.article_id)
         per_page = current_app.config['ITEMS_PER_PAGE']
-        total = int((len(tags)-1) / per_page) + 1
+        total = len(tags)
         if desc:
             tags.reverse()
         items = [article_db.get_by_id(tag.article_id) for tag in tags[(page-1)*per_page:page*per_page:]]
