@@ -21,7 +21,7 @@ def files_detail(*args, **kwargs):
         abort(404)
     if not file0.isAccessible(kwargs["user"]):
         abort(403)
-    return render_template("/files/file_detail.html", file=file0, **kwargs)
+    return render_template("files/file_detail.html", file=file0, **kwargs)
 
 # @files.route("/share",endpoint="share")
 # @get_siteInfo("文件分享")

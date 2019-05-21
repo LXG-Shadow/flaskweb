@@ -13,7 +13,7 @@ def blog_index(**kwargs):
     articles0 = articles.initFromAll(page)
     if articles0.isNone():
         abort(404)
-    return render_template('/blog/index.html', pagination=articles0,
+    return render_template('blog/index.html', pagination=articles0,
                            **kwargs)
 
 
@@ -27,7 +27,7 @@ def blog_index(**kwargs):
     articles0 = articles.initFromTag(tag,page)
     if articles0.isNone():
         abort(404)
-    return render_template('/blog/index.html', pagination=articles0,
+    return render_template('blog/index.html', pagination=articles0,
                            **kwargs)
 
 @blog.route("/article-detail/<int:id>",endpoint="article-detail",methods=["GET","POST"])
@@ -47,4 +47,4 @@ def blog_article_detail(**kwargs):
     if article0.is_hide() and article0.user.id != kwargs["user"].id and kwargs["user"].group.permission <3:
         abort(404)
     article0.add_view()
-    return render_template("/blog/index.html",article = article0,**kwargs)
+    return render_template("blog/index.html",article = article0,**kwargs)

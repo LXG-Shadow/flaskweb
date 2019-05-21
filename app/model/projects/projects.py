@@ -1,4 +1,4 @@
-from app.model.mysql import projects_db
+from app.mysql import projects_db
 
 class projects(object):
 

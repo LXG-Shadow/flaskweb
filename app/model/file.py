@@ -1,4 +1,4 @@
-from .mysql.file_db import file_db
+from app.mysql.file_db import file_db
 from flask import current_app
 
 

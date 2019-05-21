@@ -1,5 +1,5 @@
 from flask import url_for
-from .mysql.live2d_db import live2dModel_db, live2dTip_db
+from app.mysql.live2d_db import live2dModel_db, live2dTip_db
 from app import base_dir
 import os, json
 

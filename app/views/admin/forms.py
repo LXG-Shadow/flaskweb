@@ -1,11 +1,11 @@
-from flask_wtf import Form,FlaskForm
+from flask_wtf import FlaskForm
 from flask_babel import lazy_gettext as _l
 from flask_pagedown.fields import PageDownField
-from wtforms.fields import StringField,TextAreaField,SubmitField,PasswordField,BooleanField,RadioField
+from wtforms.fields import StringField,TextAreaField,SubmitField, BooleanField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from wtforms.validators import DataRequired,Length,EqualTo,Email
-from ...model.mysql.user_db import userGroup_db
-from ...model.mysql.blog.article_db import articleSource_db,articleType_db
+from wtforms.validators import DataRequired,Length, Email
+from app.mysql.user_db import userGroup_db
+from app.mysql import articleSource_db,articleType_db
 
 class UserEditForm(FlaskForm):
     id = StringField(u'Id')

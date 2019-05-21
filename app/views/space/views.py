@@ -22,7 +22,7 @@ def space_index(**kwargs):
         user0 = user.initFromId(id)
     if user0.is_anonymous():
         abort(404)
-    return render_template("/space/index.html", page_user=user0, **kwargs)
+    return render_template("space/index.html", page_user=user0, **kwargs)
 
 
 @space.route("/<int:id>/articles", endpoint="articles")
@@ -38,7 +38,7 @@ def space_articles(**kwargs):
     page = request.args.get('page', 1, type=int)
     articles0 = articles.initFromUser(user0.id, page)
     kwargs["siteInfo"].parameter["id"] = user0.id
-    return render_template("/space/articles-display/articles.html", page_user=user0, pagination=articles0,
+    return render_template("space/articles-display/articles.html", page_user=user0, pagination=articles0,
                            **kwargs)
 
 
@@ -55,17 +55,17 @@ def space_edit(**kwargs):
             if status[0]:
                 return redirect(url_for("space.index", id=kwargs["user"].id))
             else:
-                return render_template('/space/profile-edit.html', form=form,
+                return render_template('space/profile-edit.html', form=form,
                                        message=("warning", codesmap[str(status[1])]),
                                        **kwargs)
         else:
             form.username.data = kwargs["user"].name
             form.email.data = kwargs["user"].email
-            return render_template('/space/profile-edit.html', form=form, message=("danger", codesmap[-1]),
+            return render_template('space/profile-edit.html', form=form, message=("danger", codesmap[-1]),
                                    **kwargs)
     form.username.data = kwargs["user"].name
     form.email.data = kwargs["user"].email
-    return render_template('/space/profile-edit.html', form=form, **kwargs)
+    return render_template('space/profile-edit.html', form=form, **kwargs)
 
 
 @space.route("/article-manage/add", endpoint="article-add", methods=["GET", "POST"])
@@ -77,7 +77,7 @@ def space_article_add(**kwargs):
     else:
         form = PageDownForm()
     if request.method == "GET":
-        return render_template('/space/article-manage/add.html', form=form, **kwargs)
+        return render_template('space/article-manage/add.html', form=form, **kwargs)
     if request.method == "POST":
         if form.validate_on_submit():
             title = form.title.data
@@ -93,16 +93,16 @@ def space_article_add(**kwargs):
             status = article.add(title, content_raw, summary, type.id, source.id, kwargs["user"].id, tags,
                                  advanced=no_clean)
             if status[0]:
-                return render_template('/space/article-manage/add.html', form=form, edit=True,
+                return render_template('space/article-manage/add.html', form=form, edit=True,
                                        message=("success", codesmap[str(status[1])]),
                                        article_id=status[2], **kwargs)
             else:
-                return render_template('/space/article-manage/add.html', form=form,
+                return render_template('space/article-manage/add.html', form=form,
                                        message=("warning", codesmap[str(status[1])]), **kwargs)
-        return render_template('/space/article-manage/add.html',
+        return render_template('space/article-manage/add.html',
                                message=("warning", codesmap[str(-1)]),
                                form=form, **kwargs)
-    return render_template('/space/article-manage/add.html', form=PageDownForm(), **kwargs)
+    return render_template('space/article-manage/add.html', form=PageDownForm(), **kwargs)
 
 
 @space.route("article-manage/edit/<int:id>", endpoint="article-edit", methods=["GET", "POST"])
@@ -133,14 +133,14 @@ def space_aricle_edit(**kwargs):
             status = article.edit(kwargs["id"], title, content_raw, summary, type.id, source.id, tags,
                                   advanced=no_clean)
             if status[0]:
-                return render_template('/space/article-manage/add.html', form=form, edit=True,
+                return render_template('space/article-manage/add.html', form=form, edit=True,
                                        message=("success", codesmap[str(status[1])]),
                                        article_id=status[2], **kwargs)
             else:
-                return render_template('/space/article-manage/add.html', form=form,
+                return render_template('space/article-manage/add.html', form=form,
                                        message=("warning", codesmap[str(status[1])]),
                                        article_id=article0.id, edit=True, **kwargs)
-        return render_template('/space/article-manage/add.html',
+        return render_template('space/article-manage/add.html',
                                message=("warning", codesmap[str(-1)]),
                                form=form, edit=True, **kwargs)
     form.title.data = article0.title
@@ -149,7 +149,7 @@ def space_aricle_edit(**kwargs):
     form.summary.data = article0.summary
     form.content.data = article0.content_raw
     form.tags.data = " ".join([t.name for t in article0.tags])
-    return render_template('/space/article-manage/add.html', form=form, article_id=article0.id,
+    return render_template('space/article-manage/add.html', form=form, article_id=article0.id,
                            edit=True, **kwargs)
 
 
@@ -167,7 +167,7 @@ def space_article_delete(**kwargs):
         if form.validate_on_submit():
             status = article.delete(kwargs["id"])
             if status[0]:
-                return render_template('/space/article-manage/delete_success.html', article=article0,
+                return render_template('space/article-manage/delete_success.html', article=article0,
                                        **kwargs)
-    return render_template('/space/article-manage/delete.html', form=form, article=article0,
+    return render_template('space/article-manage/delete.html', form=form, article=article0,
                            **kwargs)

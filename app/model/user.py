@@ -1,7 +1,6 @@
 from flask import current_app
-from app.model.mysql import user_db, userGroup_db
+from app.mysql import user_db, userGroup_db
 from werkzeug.security import check_password_hash
-from base64 import urlsafe_b64encode
 from base64 import b64encode,b64decode
 import hmac,hashlib,json,time
 import _hashlib

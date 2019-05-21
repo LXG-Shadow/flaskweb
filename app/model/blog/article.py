@@ -1,5 +1,5 @@
-from app.model.mysql.blog import article_db, articleSource_db, articletagLink_db, articleTags_db
-from app.model.mysql.user_db import user_db
+from app.mysql import article_db, articleSource_db, articletagLink_db, articleTags_db
+from app.mysql.user_db import user_db
 from flask import current_app
 
 

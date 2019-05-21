@@ -27,7 +27,7 @@ def projects_redirect(*args,**kwargs):
 def dynamic_project_display(*args,**kwargs):
     language, project_name = kwargs.pop("language"), kwargs.pop("project_name")
     try:
-        return render_template("/projects/%s/%s.html" %(language,project_name),**kwargs)
+        return render_template("projects/%s/%s.html" %(language,project_name),**kwargs)
     except:
         abort(404)
 

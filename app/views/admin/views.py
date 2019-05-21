@@ -6,8 +6,8 @@ from ...decorator import get_siteInfo
 from ...model.user import users, user
 from ...model.blog import articles, article
 from ...model.file import file, files
-from ...model.mysql.blog.article_db import articleType_db, articleSource_db
-from .forms import UserEditForm, UserRegisterForm, PageDownForm, DeleteForm, AdvancedPageDownForm,FileUploadForm,FileEditForm
+from app.mysql import articleType_db, articleSource_db
+from .forms import UserEditForm, UserRegisterForm, DeleteForm, AdvancedPageDownForm,FileUploadForm,FileEditForm
 from . import admin
 
 
@@ -15,7 +15,7 @@ from . import admin
 @admin_auth_view
 @get_siteInfo(_l("Admin Backend"))
 def admin_index(**kwargs):
-    return render_template("/admin/index.html", **kwargs)
+    return render_template("admin/index.html", **kwargs)
 
 
 @admin.route("/user-manage", endpoint="user-manage", methods=["GET", "POST"])
@@ -26,7 +26,7 @@ def admin_user_manage(**kwargs):
     users0 = users.initFromAll(page)
     if users0.isNone():
         abort(404)
-    return render_template("/admin/user/user_manage.html", pagination=users0.pagination, **kwargs)
+    return render_template("admin/user/user_manage.html", pagination=users0.pagination, **kwargs)
 
 
 @admin.route("/user-manage/edit/<int:id>", endpoint="user-edit", methods=["GET", "POST"])
@@ -46,28 +46,28 @@ def admin_user_edit(**kwargs):
             if len(form.password.data) == 0:
                 status = user.edit(kwargs["id"], username, email, group_id=group.id)
             elif len(form.password.data) > 16 or len(form.password.data) < 6:
-                return render_template('/admin/user/user_manage_edit.html', message=("warning", codesmap[str(-1)]),
+                return render_template('admin/user/user_manage_edit.html', message=("warning", codesmap[str(-1)]),
                                        form=form, **kwargs)
             else:
                 status = user.edit(kwargs["id"], username, email, password=form.password.data, group_id=group.id)
 
             if status[0]:
                 form.password.data = ""
-                return render_template('/admin/user/user_manage_edit.html', form=form,
+                return render_template('admin/user/user_manage_edit.html', form=form,
                                        message=("success", codesmap[str(status[1])]), **kwargs)
             else:
                 form.id.data = user0.id
                 form.username.data = user0.name
                 form.email.data = user0.email
-                return render_template('/admin/user/user_manage_edit.html', form=form,
+                return render_template('admin/user/user_manage_edit.html', form=form,
                                        message=("warning", codesmap[str(status[1])]), **kwargs)
-        return render_template('/admin/user/user_manage_edit.html', message=("warning", codesmap[str(-1)]),
+        return render_template('admin/user/user_manage_edit.html', message=("warning", codesmap[str(-1)]),
                                form=form, **kwargs)
     form.id.data = user0.id
     form.username.data = user0.name
     form.email.data = user0.email
     form.group.data = user0.getGroup()
-    return render_template("/admin/user/user_manage_edit.html", form=form, **kwargs)
+    return render_template("admin/user/user_manage_edit.html", form=form, **kwargs)
 
 
 @admin.route("/user-manage/register", endpoint="user-register", methods=["GET", "POST"])
@@ -84,16 +84,16 @@ def admin_user_register(**kwargs):
             status = user.register(username, password, email, group_id=group.id)
             if status[0]:
                 form.id.data = status[2]
-                return render_template('/admin/user/user_manage_edit.html', form=form,
+                return render_template('admin/user/user_manage_edit.html', form=form,
                                        message=("success", codesmap[str(status[1])]), **kwargs)
             else:
-                return render_template('/admin/user/user_manage_edit.html', form=form,
+                return render_template('admin/user/user_manage_edit.html', form=form,
                                        message=("warning", codesmap[str(status[1])]), **kwargs)
-        return render_template('/admin/user/user_manage_edit.html',
+        return render_template('admin/user/user_manage_edit.html',
                                message=("warning", codesmap[str(-1)]),
                                form=form, **kwargs)
     form.id.data = "AutoGenerate"
-    return render_template("/admin/user/user_manage_edit.html", form=form, **kwargs)
+    return render_template("admin/user/user_manage_edit.html", form=form, **kwargs)
 
 
 
@@ -125,17 +125,17 @@ def admin_article_manage(**kwargs):
             status = article.delete(id)
             articles0 = articles.initFromPara(page, **para1)
             if status[0]:
-                return render_template('/admin/article-manage/article_manage.html', pagination=articles0,
+                return render_template('admin/article-manage/article_manage.html', pagination=articles0,
                                        form=form, para=para,
                                        message=("success", codesmap[str(status[1])]),
                                        **kwargs)
             else:
-                return render_template('/admin/article-manage/article_manage.html', pagination=articles0,
+                return render_template('admin/article-manage/article_manage.html', pagination=articles0,
                                        form=form, para=para,
                                        message=("warning", codesmap[str(status[1])]),
                                        **kwargs)
     articles0 = articles.initFromPara(page, **para1)
-    return render_template("/admin/article-manage/article_manage.html", pagination=articles0, form=form,
+    return render_template("admin/article-manage/article_manage.html", pagination=articles0, form=form,
                            para=para, **kwargs)
 
 
@@ -162,14 +162,14 @@ def admin_article_edit(**kwargs):
             status = article.edit(kwargs["id"], title, content_raw, summary, type.id, source.id, tags,
                                   advanced=no_clean)
             if status[0]:
-                return render_template('/space/article-manage/add.html', form=form, edit=True,
+                return render_template('space/article-manage/add.html', form=form, edit=True,
                                        message=("success", codesmap[str(status[1])]),
                                        article_id=status[2], **kwargs)
             else:
-                return render_template('/space/article-manage/add.html', form=form,
+                return render_template('space/article-manage/add.html', form=form,
                                        message=("warning", codesmap[str(status[1])]),
                                        article_id=article0.id, edit=True, **kwargs)
-        return render_template('/space/article-manage/add.html',
+        return render_template('space/article-manage/add.html',
                                message=("warning", codesmap[str(-1)]),
                                form=form, edit=True, **kwargs)
     form.title.data = article0.title
@@ -178,7 +178,7 @@ def admin_article_edit(**kwargs):
     form.summary.data = article0.summary
     form.content.data = article0.content_raw
     form.tags.data = " ".join([t.name for t in article0.tags])
-    return render_template('/space/article-manage/add.html', form=form, article_id=article0.id,
+    return render_template('space/article-manage/add.html', form=form, article_id=article0.id,
                            edit=True, **kwargs)
 
 @admin.route("/article-manage/delete/<int:id>", endpoint="article-delete", methods=["GET", "POST"])
@@ -193,9 +193,9 @@ def space_article_delete(**kwargs):
         if form.validate_on_submit():
             status = article.delete(kwargs["id"])
             if status[0]:
-                return render_template('/space/article-manage/delete_success.html', article=article0,
+                return render_template('space/article-manage/delete_success.html', article=article0,
                                        **kwargs)
-    return render_template('/space/article-manage/delete.html', form=form, article=article0,
+    return render_template('space/article-manage/delete.html', form=form, article=article0,
                            **kwargs)
 
 
@@ -223,15 +223,15 @@ def admin_file_manage(**kwargs):
             status = file.delete(id)
             files0 = files.initFromPara(page, **para1)
             if status[0]:
-                return render_template('/admin/file-manage/file_manage.html', pagination=files0.pagination, form=form, para=para,
+                return render_template('admin/file-manage/file_manage.html', pagination=files0.pagination, form=form, para=para,
                                        message=("success", codesmap[str(status[1])]),
                                        **kwargs)
             else:
-                return render_template('/admin/file-manage/file_manage.html', pagination=files0.pagination, form=form, para=para,
+                return render_template('admin/file-manage/file_manage.html', pagination=files0.pagination, form=form, para=para,
                                        message=("warning", codesmap[str(status[1])]),
                                        **kwargs)
     files0 = files.initFromPara(page, **para1)
-    return render_template("/admin/file-manage/file_manage.html", pagination=files0.pagination, form = form,
+    return render_template("admin/file-manage/file_manage.html", pagination=files0.pagination, form = form,
                            para=para, **kwargs)
 
 @admin.route("/file-manage/upload", endpoint="file-upload", methods=["GET", "POST"])
@@ -251,13 +251,13 @@ def admin_file_upload(**kwargs):
             if status[0]:
                 return redirect(url_for("admin.file-edit",id=status[2]))
             else:
-                return render_template('/admin/file-manage/file_manage_edit.html', form=form,
+                return render_template('admin/file-manage/file_manage_edit.html', form=form,
                                        message=("warning", codesmap[str(status[1])]), **kwargs)
-        return render_template('/admin/file-manage/file_manage_edit.html',
+        return render_template('admin/file-manage/file_manage_edit.html',
                                message=("danger", codesmap[str(-1)]),
                                form=form, **kwargs)
     form.id.data = "AutoGenerate"
-    return render_template("/admin/file-manage/file_manage_edit.html", form=form, **kwargs)
+    return render_template("admin/file-manage/file_manage_edit.html", form=form, **kwargs)
 
 @admin.route("/file-manage/edit/<int:id>", endpoint="file-edit", methods=["GET", "POST"])
 @admin_auth_view
@@ -277,13 +277,13 @@ def admin_file_edit(**kwargs):
             password = form.password.data
             status = file.edit(kwargs["id"], alias, description,permission.permission, external, link, password)
             if status[0]:
-                return render_template('/admin/file-manage/file_manage_edit.html', form=form,
+                return render_template('admin/file-manage/file_manage_edit.html', form=form,
                                        message=("success", codesmap[str(status[1])]), **kwargs)
             else:
                 form.alias.data = file0.alias
-                return render_template('/admin/file-manage/file_manage_edit.html', form=form,
+                return render_template('admin/file-manage/file_manage_edit.html', form=form,
                                        message=("warning", codesmap[str(status[1])]), **kwargs)
-        return render_template('/admin/file-manage/file_manage_edit.html', message=("warning", codesmap[str(-1)]),
+        return render_template('admin/file-manage/file_manage_edit.html', message=("warning", codesmap[str(-1)]),
                                form=form, **kwargs)
     form.id.data = file0.id
     form.alias.data = file0.alias
@@ -292,4 +292,4 @@ def admin_file_edit(**kwargs):
     #form.permission.data  = file0.permission
     form.link.data = file0.link
     form.password.data = file0.password
-    return render_template("/admin/file-manage/file_manage_edit.html", form=form, **kwargs)
+    return render_template("admin/file-manage/file_manage_edit.html", form=form, **kwargs)

@@ -1,10 +1,10 @@
-from flask_wtf import Form,FlaskForm
+from flask_wtf import FlaskForm
 from flask_babel import lazy_gettext as _l
 from flask_pagedown.fields import PageDownField
 from wtforms.fields import StringField,TextAreaField,SubmitField,PasswordField,BooleanField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired,Length,EqualTo,Email
-from ...model.mysql.blog import articleType_db,articleSource_db
+from app.mysql import articleType_db,articleSource_db
 
 class PageDownForm(FlaskForm):
     title = StringField(_l('Title'), validators=[DataRequired(),Length(1, 64)])

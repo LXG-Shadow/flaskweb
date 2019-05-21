@@ -18,7 +18,7 @@ def index(**kwargs):
 @get_siteInfo("Intro")
 @get_user
 def index(**kwargs):
-    return render_template("/intro.html",**kwargs)
+    return render_template("intro.html",**kwargs)
 
 @main.app_errorhandler(404)
 @get_user
