@@ -31,13 +31,16 @@ def error_500(*args,**kwargs):
     return render_template('errorpage.html',errorpage = errorpage(500),**kwargs), 500
 
 @main.app_errorhandler(405)
+@get_user
 def error_500(*args,**kwargs):
     return render_template('errorpage.html',errorpage = errorpage(405),**kwargs), 405
 
 @main.app_errorhandler(401)
+@get_user
 def error_401(*args,**kwargs):
     return render_template('errorpage.html',errorpage = errorpage(401),**kwargs), 401
 
 @main.app_errorhandler(403)
+@get_user
 def error_403(*args,**kwargs):
     return render_template('errorpage.html',errorpage = errorpage(403),**kwargs), 403

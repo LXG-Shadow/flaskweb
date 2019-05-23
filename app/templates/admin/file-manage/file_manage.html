@@ -13,12 +13,12 @@
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-2 column">
-                {% include "/admin/managebar.html" %}
+                {% include "admin/managebar.html" %}
             </div>
             <div class="col-md-10 column">
                 <div class="row clearfix">
                     {% if message %}
-                        {% import "/component/alert_macro.html" as alert %}
+                        {% import "component/alert_macro.html" as alert %}
                         <div class="col-md-8 col-md-offset-2" id="alert_feedback">
                             {{ alert.createAlert(message[0],message[1],prefix=_("Updated ")) }}
                         </div>
