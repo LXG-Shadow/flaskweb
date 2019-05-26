@@ -1,0 +1,54 @@
+{
+    "waifuSize": [
+        300,
+        400
+    ],
+    "waifuMinWidth": 666,
+    "waifuEdgeSide": "left:70%",
+    "waifuDraggable": true,
+    "waifuDraggableRevert": false,
+    "model": {
+        "ChangeApi": "",
+        "GetApi": "",
+        "Url": "",
+        "Id": "",
+        "TextureId": "",
+        "Name": ""
+    },
+    "setting": {
+        "showConsoleLogs": true,
+        "enableTips": true,
+        "enableToolbar": true,
+        "enableHitokoto": true
+    },
+    "tips": {
+        "Url": "",
+        "ShowingPeriod": 3000,
+        "FadeTime": 200,
+        "Size": [
+            240,
+            100
+        ],
+        "Top": "30px",
+        "FontSize": "13px",
+        "showWelcomeMessage": true,
+        "showCopyMessage": true,
+        "showSiteInfo": true
+    },
+    "hitokoto": {
+        "Api": "https://v1.hitokoto.cn/",
+        "Cat": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g"
+        ],
+        "Encoding": "json",
+        "Charset": "utf-8",
+        "ShowingPeriod": 15000
+    },
+    "toolbar": {}
+}
