@@ -2,7 +2,7 @@ from flask import request,render_template,abort
 from . import blog
 from ...decorator import get_user,get_blogInfo
 from ...model.blog import articles,article
-import datetime
+import datetime,urllib
 
 @blog.route("/",methods=["GET","POST"])
 @blog.route("",endpoint="index",methods=["GET","POST"])
@@ -21,7 +21,7 @@ def blog_index(**kwargs):
 @get_user
 @get_blogInfo("Tag")
 def blog_index(**kwargs):
-    tag = kwargs.pop("tag")
+    tag = urllib.parse.unquote(kwargs.pop("tag"))
     kwargs["siteInfo"].parameter["tag"] = tag
     page = request.args.get('page', 1, type=int)
     articles0 = articles.initFromTag(tag,page)
