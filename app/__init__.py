@@ -1,6 +1,7 @@
 from flask import Flask,jsonify,request,current_app
 from flask_babel import lazy_gettext as _l
 from flask_bootstrap import Bootstrap
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_pagedown import PageDown
 from flask_babel import Babel
@@ -65,6 +66,7 @@ def app_extensions(app):
     db.init_app(app)
     pagedown.init_app(app)
     babel.init_app(app)
+    CORS(app, supports_credentials=True)
 
 
 
