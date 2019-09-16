@@ -4,15 +4,6 @@ from . import api,base_dir
 from ..model.live2d import live2dConfig,live2dModel
 import os,json
 
-path = "live2d/model/bilibili-live/22/model.json"
-
-def loadJsonFile(filedir,prefix="static"):
-    data = {}
-    with open(os.path.join(base_dir,prefix,filedir),"r",encoding="utf-8") as f:
-        data = json.loads(f.read())
-    return data
-
-
 @api.route("/live2d/config/get",endpoint="live2d-config-get",methods = ["GET","POST"])
 def live2d_getConfig():
     config = request.values.get("config","default",type=str)
