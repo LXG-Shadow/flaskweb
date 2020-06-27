@@ -12,13 +12,16 @@
                 {%- endblock metas %}
 
                 {% block scripts %}
-                    <script src="{{ bootstrap_find_resource('jquery.js', cdn='jquery') }}"></script>
-                    <script src="{{ bootstrap_find_resource('js/bootstrap.js', cdn='bootstrap') }}"></script>
+                    <!--<script src="{{ bootstrap_find_resource('jquery.js', cdn='jquery') }}"></script>-->
+                    <!--<script src="{{ bootstrap_find_resource('js/bootstrap.js', cdn='bootstrap') }}"></script>-->
+                    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+                    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
                 {%- endblock scripts %}
 
                 {%- block styles %}
                     <!-- Bootstrap -->
-                    <link href="{{ bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap') }}" rel="stylesheet">
+                    <!--<link href="{{ bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap') }}" rel="stylesheet">-->
+                    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
                     {% include "component/fixedcss.html" %}
                 {%- endblock styles %}
             {%- endblock head %}
