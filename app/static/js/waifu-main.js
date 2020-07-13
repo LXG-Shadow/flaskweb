@@ -88,6 +88,53 @@ function waifu() {
         });
     };
 
+    this.initWaifuFromRawConfig = function (url) {
+        var waifu = this;
+        var rawConfigUrl = "";
+        var tipUrl = "";
+        var model = {};
+        $.ajax({
+            cache: true,
+            async: false,
+            url: url,
+            dataType: "json",
+            success: function (result) {
+                if (result["code"] === "1") {
+                    rawConfigUrl = result["data"].rawConfigUrl;
+                    model = result["data"].model;
+                    tipUrl = result["data"].tipUrl;
+                    waifu.waifuSize = result["data"].waifuSize;
+                    waifu.waifuMinWidth = result["data"].waifuMinWidth;
+                    waifu.waifuEdgeSide = result["data"].waifuEdgeSide;
+                    waifu.waifuDraggable = result["data"].waifuDraggable;
+                    waifu.waifuDraggableRevert = result["data"].waifuDraggableRevert;
+                    waifu.setting = result["data"].setting;
+                    waifu.tips = result["data"].tips;
+                    waifu.hitokoto = result["data"].hitokoto;
+                }
+            }
+        });
+
+        $.ajax({
+            cache: true,
+            url: rawConfigUrl,
+            dataType: "json",
+            success: function (result) {
+                waifu.waifuSize = result.waifuSize;
+                waifu.waifuMinWidth = result.waifuMinWidth;
+                waifu.waifuEdgeSide = result.waifuEdgeSide;
+                waifu.waifuDraggable = result.waifuDraggable;
+                waifu.waifuDraggableRevert = result.waifuDraggableRevert;
+                waifu.setting = result.setting;
+                waifu.tips = result.tips;
+                waifu.tips.Url = tipUrl;
+                waifu.model = model;
+                waifu.hitokoto = result.hitokoto;
+                waifu.initWaifu();
+            }
+        });
+    };
+
     this.loadWaifu = function () {
         var waifu = this;
 
@@ -159,7 +206,7 @@ function waifu() {
             waifu.changeTexture();
         });
         $(".waifu-tool .glyphicon-remove").click(function () {
-            localStorage.setItem("enableWaifu","0");
+            localStorage.setItem("enableWaifu", "0");
             $("#waifu").empty();
             $("#open-waifu").show();
         });

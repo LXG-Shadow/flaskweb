@@ -100,3 +100,16 @@ class live2dConfig(object):
             return data
         except:
             return {}
+
+    def dumpRaw(self):
+        data = {}
+        data["rawConfigUrl"] = self.configUrl
+        data["tipUrl"] = self.tipsUrl
+        data["model"] = {}
+        data["model"]["ChangeApi"] = self.modelChangeApi
+        data["model"]["GetApi"] = self.modelGetApi
+        data["model"]["Id"] = self.model.id
+        data["model"]["Name"] = self.model.name
+        data["model"]["TextureId"] = self.model.textureId
+        data["model"]["Url"] = self.modelGetApi + "?id=%s&textureid=%s" % (self.model.id, self.model.textureId)
+        return data
